@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <%- include('./partials/head')%>
+
+  <body>
+
+    <%- include('./partials/header')%>
+
+    <main>
+      <section class="contenido">
+        <div class="contenedor-contenido">
+
+          <% if (locals.errors) {%>
+            <% errors.forEach(error=> { %>
+                <p>
+                    <%= error.msg %>
+                </p>
+                <% })} %>
+
+
+          <h1>LOGIN</h1>
+          <p>Accede a tu cuenta</p>
+          <form action="/users" method="POST" class="login">
+            <input type="email" id="email" name="email" placeholder="EMAIL" />
+            <input
+              type="password"
+              id="contraseña"
+              name="password"
+              placeholder="CONTRASEÑA"
+            />
+            <input type="checkbox" name="recordarme" id="recordarme">
+            <label for="recordarme">Recordar</label>
+
+            <a href="/users/register" class="ir-a">¿No tienes cuenta? Regístrate</a>
+
+            <div class="boton_ingresar"><button>Ingresar</button></div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <%- include('./partials/footer')%>
+    
+  </body>
+</html>

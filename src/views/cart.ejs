@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <%- include('./partials/head')%>
+
+  <body>
+
+    <%- include('./partials/header')%>
+
+    <main>
+      <div class="cart-page">
+        <div class="cart-article">
+          <div class="cart-item-img">
+            <img src="/img/argentina-camiseta.png" class="cart-camiseta-img" />
+          </div>
+          <div class="cart-item-info">
+            <span>Camiseta Home Argentina</span>
+            <span>Unida x1</span>
+            <span>Talle M</span>
+            <span>$28,900</span>
+          </div>
+        </div>
+        <div class="cart-summary">
+          <h2 class="cart-h2">ORDEN DE COMPRA</h2>
+          <ul class="cart-list">
+            <li class="cart-box-items">Detalle del producto</li>
+            <li class="cart-box-items">Shipping</li>
+            <li class="cart-box-items">Subtotal</li>
+            <li class="cart-box-items">Total</li>
+          </ul>
+          <form method="POST" action="https:/index">
+            <input type="hidden" name="parametre1" value="valeur1" />
+            <input type="hidden" name="signature" value="signature" />
+            <input type="submit" name="payer" value="Pagar" />
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <%- include('./partials/footer')%>
+  </body>
+</html>

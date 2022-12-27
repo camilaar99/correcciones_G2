@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('./partials/head')%>
+
+  <body>
+
+    <%- include('./partials/header')%>
+
+      <main>
+        <section class="contenido-2">
+          <div class="contenedor-contenido-2">
+                         
+
+            <h1>Editar usuario</h1>
+            <p>Usuario a modificar</p>
+            <form action="/users/admin/listar?_method=PUT" method="POST" class="login" enctype="multipart/form-data" >
+              <input type="text" id="firstName" name="firstName" placeholder="NOMBRE" value=" <%=old.firstName%>"/>
+              <input type="text" id="lastName" name="lastName" placeholder="APELLIDO"   value=" <%=old.lastName%>"/>
+              <input type="email" id="email" name="email" placeholder="EMAIL" value=" <%=old.email%>"/>
+              <label for="type">Tipo de usuario</label>
+              <select name="type" id="type" value=" <%=old.type%>">
+                <option value="Admin">Administrador</option>
+                <option value="Usuario">Usuario</option>
+              </select>
+              
+              <label for="avatar">Foto de perfil</label>
+              <input type="file" id="avatar" name="avatar"> 
+              <div class="boton_ingresar"><button type="submit">Modificar</button></div>
+              <div class="boton_ingresar"><button type="reset">Borrar</button></div>
+            </form>
+          </div>
+        </section>
+      </main>
+
+      <%- include('./partials/footer')%>
+
+  </body>
+
+</html>

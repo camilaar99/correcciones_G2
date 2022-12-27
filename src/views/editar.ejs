@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <%- include('./partials/head')%>
+
+<body>
+    <%- include('./partials/header')%>
+
+
+    <main>
+
+
+        
+        <div class="contenedor-formulario2">
+            <div class="formulario-admin">
+
+                <a class="botones-product" href="/crear">Crear</a>
+                <a class="botones-product" href="/modificar">Modificar</a>
+            </div>
+
+        </div>
+
+
+        <h2 class="products-title">Estás editando: <i><%=productToEdit.teamName%></i></h2>
+        <% if (locals.errors) {%>
+            <% errors.forEach(error=> { %>
+                <p>
+                    <%= error.msg %>
+                </p>
+                <% })} %>
+
+        <div class="contenedor-crear">
+            <div class="division">
+            <h1>Crear</h1>
+            </div>
+            <div class="division">
+            <p>Crea nuevos productos</p>
+            </div>
+
+            <form action="/product/<%=productToEdit.id  %> ?_method=PUT" method="post" class="login" enctype="multipart/form-data">
+                <div class="division">
+                     <label for="teamName">teamName</label>
+                     <input type="text" id="teamName" name="teamName" value=" <%=productToEdit.teamName%>">
+                 </div>
+
+                 <div class="division">
+                     <label for="descripcion">Descripción del jugador</label>
+                     <textarea name="descripcion" id="descripcion" cols="36" rows="4"
+                     value=" <%=productToEdit.descripcion%>"></textarea>
+
+                 </div>
+
+                 <div class="division">
+                     <label for="imagen">Selecciona imagen del producto</label>
+                     <input type="file" id="imagen" name="imagen" placeholder="Archivo">
+                 </div>
+
+                 <div class="division">
+                     <label for="size">Talle camiseta:</label>
+                     <select name="size" id="size">
+                         <option value="<%=productToEdit.size[1]  %>"><%=productToEdit.size[1]  %></option>
+                         <option value="Small">Small</option>
+                         <option value="Medium">Medium</option>
+                         <option value="Large">Large</option>
+                     </select>
+                 </div>
+
+
+                 <div class="division">                    
+                     <label for="jugador">Jugador</label>
+                     <input type="text" id="jugador" name="jugador" placeholder="jugador" value=" <%=productToEdit.jugador%>">
+                 </div>
+
+                 <div class="division">
+                     <label for="price">precio del producto</label>
+                     <input type="text" id="price" name="price" value=" <%=productToEdit.price%>">
+                 </div>
+
+                 <div class="division">
+                     <button class="botones-crear" type="submit">Crear</button>
+                     <button class="botones-crear" type="reset">Descartar</button>
+                 </div>
+
+
+             </form>
+        </div>
+
+    </main>
+
+    <%- include('./partials/footer')%>
+</body>
+
+</html>

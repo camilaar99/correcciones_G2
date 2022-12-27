@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <%- include('./partials/head')%>
+
+  <body>
+    
+    <%- include('./partials/header')%>
+    
+    <main>
+      <div class="presentation">
+        <div class="info-title">
+          <div><%=product.teamName  %></div>
+          <div>HOME KIT</div>
+          <div><%=product.jugador  %></div>
+        </div>
+        <div class="main-img"><img src="/img/<%=product.imagen  %>" /></div>
+      </div>
+      <div class="product-footer">
+        <div class="product-box">
+          <div class="product-title"><%=product.teamName  %> Home Kit</div>
+          <div class="size">
+            <label for="sizes"></label>
+            <select name="sizes" id="sizes" required>
+              <option value="" disabled selected hidden>Talles</option>
+              <option value="XS">Xsmall</option>
+              <option value="S">Small</option>
+              <option value="M">Medium</option>
+              <option value="L">Large</option>
+              <option value="XL">Xlarge</option>
+            </select>
+          </div>
+        </div>
+        <a class="checkout" href="/cart"><button class="checkout">$<%=product.price  %></button></div></a>
+      </div>
+      <div class="big-img"><img src="/img/messi.jpeg" /></div>
+      <div class="player-facts">
+        <div class="facts-title"><h3>GOAT facts</h3></div>
+        <div class="fact-box">
+          <h4><%=product.teamName  %></h4>
+          <ul>
+            <li>Partidos: 163</li>
+            <li>Goles: 90</li>
+            <li>Titulos: 4</li>
+          </ul>
+        </div>
+        <div class="fact-box">
+          <h4>Barcelona</h4>
+          <ul>
+            <li>Partidos: 778</li>
+            <li>Goles: 672</li>
+            <li>Titulos: 35</li>
+          </ul>
+        </div>
+        <div class="fact-box">
+          <h4>Total</h4>
+          <ul>
+            <li>Partidos: 988</li>
+            <li>Goles: 781</li>
+            <li>Titulos: 41</li>
+          </ul>
+        </div>
+      </div>
+      <div class="information-a">
+        <div class="info-img-a"><img src="/img/messi-a.jpeg" /></div>
+        <p>
+          <%=product.descripcion  %>
+        </p>
+      </div>
+      <div class="information-b">
+        <p>
+          Ganador en cinco ocasiones del Balón de Oro, en cuatro de ellas consecutivas (2009-2012), es el máximo goleador de la historia del Barça, ya se encuentra en el top ten' histórico de los artilleros de la Primera División española; es el jugador extranjero con más partidos disputados con la camiseta blaugrana.
+        </p>
+        <div class="info-img-b"><img src="/img/messi-b.jpeg" /></div>
+      </div>
+    </main>
+
+    <%- include('./partials/footer')%>
+    
+  </body>
+</html>

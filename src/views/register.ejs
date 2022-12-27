@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('./partials/head')%>
+
+  <body>
+
+    <%- include('./partials/header')%>
+
+      <main>
+        <section class="contenido-2">
+          <div class="contenedor-contenido-2">
+            <% if (locals.errores) { %>
+              <% errores.forEach( error => { %>  
+                <p style="color:#FF0000"><%= error.msg %></p>
+                <% })} %> 
+
+                
+
+                <% if (locals.old) {%>
+                  <%= old.firstName  %>  
+                  <% } %> 
+
+            <h1>Regístrate</h1>
+            <p>Crea tu cuenta</p>
+            <form action="/users/log" method="POST" class="login" enctype="multipart/form-data" >
+              <input type="text" id="firstName" name="firstName" placeholder="NOMBRE" value="<% if (locals.old) {%>
+                <%= old.firstName  %>  
+                <% } %>" />
+                <input type="text" id="lastName" name="lastName" placeholder="APELLIDO" value="<% if (locals.old) {%>
+                  <%= old.lastName  %>  
+                  <% } %>" />
+              
+              <input type="email" id="email" name="email" placeholder="EMAIL" value=" <% if (locals.old) {%>
+                <%= old.email  %>  
+                <% } %> "/>
+              <input type="email" id="email2" name="email2" placeholder="REPETIR EMAIL" value=" <% if (locals.old) {%>
+                <%= old.email  %>  
+                <% } %> " />
+              <input type="password" id="contraseña" name="password" placeholder="CONTRASEÑA" />
+              <input type="password" id="contraseña2" name="password2" placeholder="REPETIR CONTRASEÑA" />
+              <label for="type">Tipo de usuario</label>
+              <select name="type" id="type" value=" <% if (locals.old) {%>
+                <%= old.type  %>  
+                <% } %> ">
+                <option value="Admin">Administrador</option>
+                <option value="Usuario">Usuario</option>
+              </select>
+              
+              <label for="avatar">Foto de perfil</label>
+              <input type="file" id="avatar" name="avatar"> 
+              <a href="/users/log" class="ir-a">¿Ya tienes cuenta? Inicia sesión</a>
+              <div class="boton_ingresar"><button>Ingresar</button></div>
+            </form>
+          </div>
+        </section>
+      </main>
+
+      <%- include('./partials/footer')%>
+
+  </body>
+
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <%- include('./partials/head')%>
+
+  <body>
+
+    <%- include('./partials/header')%>
+
+    <main>
+     <div class="hero-img">
+          <img src="./img/foto-home.jpg" alt="hero-img">
+     </div>
+
+
+          <section class="section-cards">
+          <article class="card">
+               <img src="./img/argentina-jugador.png" alt="img-card1">
+               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo perferendis, corporis nesciunt aliquid error veritatis deleniti illum autem sit id labore, repellat eligendi ducimus magni voluptate quod facilis quae reprehenderit.</p>
+          </article>
+<!-- 
+           <article class="card">
+              
+               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo perferendis, corporis nesciunt aliquid error veritatis deleniti illum autem sit id labore, repellat eligendi ducimus magni voluptate quod facilis quae reprehenderit.</p>
+                <img src="./img/argentina-camiseta.png" alt="img-card1">
+          </article> -->
+
+        </section>
+
+
+        <h1 class="h1-productos">Productos seleccionados</h1>
+
+
+ <div class="carrousel">
+        <div class="conteCarrousel">
+            <div class="itemCarrousel" id="itemCarrousel-1">
+                <div class="itemCarrouselTarjeta"><img src="./img/argentina-camiseta.png" alt="img1"></div>
+                <div class="itemCarrouselArrows">
+                    <a href="#itemCarrousel-3">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                    <a href="#itemCarrousel-2">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="itemCarrousel" id="itemCarrousel-2">
+                <div class="itemCarrouselTarjeta"><img src="./img/argentina-jugador.png" alt="img1"></div>
+                <div class="itemCarrouselArrows">
+                    <a href="#itemCarrousel-1">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                    <a href="#itemCarrousel-3">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="itemCarrousel" id="itemCarrousel-3">
+                <div class="itemCarrouselTarjeta"><img src="./img/argentina-camiseta.png" alt="img1"></div>
+                <div class="itemCarrouselArrows">
+                    <a href="#itemCarrousel-2">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                    <a href="#itemCarrousel-1">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <%- include('./partials/footer')%>
+    
+  </body>
+</html>

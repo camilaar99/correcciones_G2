@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <%- include('./partials/head')%>
+
+<body>
+    <%- include('./partials/header')%>
+
+
+    <main>
+
+        <div class="contenedor-formulario">
+            <h1>Hola admin! ¿Qué deseas hacer?</h1>
+            
+            <div class="formulario-admin">
+
+            <a class="botones-product" href="/product/crear">Crear</a>
+            <a class="botones-product" href="/product/modificar">Modificar</a>
+            </div>
+            <div class="formulario-admin">
+                <a href="/users/admin/listar" class="ir-a">Listar usuarios</a>
+            </div>
+            
+        </div>
+
+
+        <form action="" method="post">
+            <label for="hola"></label>
+            <input type="text" id="hola" name="hola">
+            <label for="fecha"></label>
+            <input type="date" name="fecha" id="fecha">
+            <button type="submit"></button>
+        </form>
+
+    </main>
+
+    <%- include('./partials/footer')%>
+</body>
+
+</html>

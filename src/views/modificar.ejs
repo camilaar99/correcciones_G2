@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('./partials/head')%>
+
+    <body>
+        <%- include('./partials/header')%>
+
+            <main>
+
+                <div class="contenedor-formulario2">
+                    <div class="formulario-admin">
+
+                        <a class="botones-product" href="/administrator/crear">Crear</a>
+                        <a class="botones-product" href="/administrator/modificar">Modificar</a>
+                    </div>
+
+                </div>
+
+
+
+                <div class="contenedor-crear">
+                    <div class="division">
+                        <h1>Modificar</h1>
+                    </div>
+                    <div class="division">
+                        <p>Modifica tus productos</p>
+                    </div>
+                    <form  method="post" class="login" action="/product/:id/?_method=PUT" enctype="multipart/form-data">
+
+                        <div class="division">
+                            <label for="producto-modificar">¿Qué producto deseas modificar?</label>
+                            <select name="modificar" id="modificar">
+                                <option value="producto1">Producto 1</option>
+                                <option value="producto2">Producto 2</option>
+                                <option value="producto3">Producto 3</option>
+                                <option value="producto4">Producto 4</option>
+                            </select>
+                        </div>
+                        <div class="division">
+                            <label for="producto">Nombre del producto</label>
+                            <input type="text" id="producto" name="producto" placeholder="Nombre producto">
+                        </div>
+
+                        <div class="division">
+                            <label for="descripcion">Descripción del producto</label>
+                            <textarea name="descripcion" id="descripcion" cols="36" rows="4"
+                                placeholder="Escribe la descripción del producto"></textarea>
+
+                        </div>
+
+                        <div class="division">
+                            <label for="imagen">Selecciona imagen del producto</label>
+                            <input type="file" id="imagen" name="imagen" placeholder="Archivo">
+                        </div>
+
+                        <div class="division">
+                            <label>Selecciona categoría del producto</label>
+                            <label for="categoria1">Categoria1</label>
+                            <input type="checkbox" name="categoria1" id="categoria1">
+                            <label for="categoria2">Categoria2</label>
+                            <input type="checkbox" name="categoria2" id="categoria2">
+                            <label for="categoria3">Categoria3</label>
+                            <input type="checkbox" name="categoria3" id="categoria3">
+                        </div>
+
+
+                        <div class="division">
+                            <label>Selecciona colores del producto</label>
+                            <label for="color1">color1</label>
+                            <input type="checkbox" name="color1" id="color1">
+                            <label for="color2">color2</label>
+                            <input type="checkbox" name="color2" id="color2">
+                            <label for="color3">color3</label>
+                            <input type="checkbox" name="color3" id="color3">
+                        </div>
+
+                        <div class="division">
+                            <label for="precio">Precio del producto</label>
+                            <input type="number" id="precio" name="precio" placeholder="Precio del producto">
+                        </div>
+
+                        <div class="division">
+                            <button class="botones-crear" type="submit">Crear</button>
+                            <button class="botones-crear" type="reset">Descartar</button>
+                        </div>
+
+
+                    </form>
+                </div>
+
+            </main>
+
+            <%- include('./partials/footer')%>
+    </body>
+
+</html>
