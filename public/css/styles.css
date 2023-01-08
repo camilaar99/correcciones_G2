@@ -1517,9 +1517,62 @@ flex-wrap: wrap;
 }
 .action-button.delete {
   background-color: rgb(248, 69, 37);
-  position: relative;
+  /* position: relative;
   right: 0px;
   max-width: fit-content;
   margin: auto;
-  display: inline-flex;
+  display: inline-flex; */
+}
+
+.invitado{
+  color: aliceblue;
+  padding-left: 5px;
+}
+
+.avatar{
+  width: 2rem;
+}
+
+.tarjeta-producto{
+  display: block;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  max-width: 400px;
+  width: 400px;
+  align-items: baseline;
+  border: #64CAB5 solid 2px;
+  justify-content: space-around ;
+  box-sizing: border-box;
+}
+
+.foto-prod{
+  width: 20vw;
+  height: 20 vh;
+}
+
+.tarjeta-producto h2{
+  color: #F0EFF1;
+}
+.contenedor-edicion{
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: var(--azul);
+    width: 100vw;
+    margin: auto;
+    height: fit-content;
+    align-items: flex-start;
+    justify-content: space-around;
+    border: greenyellow 3px dashed;
+    box-sizing: border-box;
+  
+
+}
+
+.contenedor-botones{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 }

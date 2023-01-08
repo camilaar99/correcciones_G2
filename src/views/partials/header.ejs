@@ -2,6 +2,15 @@
 <html lang="en">
     <header class="header">
         <div class="navbar">
+
+          <% if (locals.invitado) {%> 
+          <img class="avatar" src="/img/users/<%=locals.usuario.avatar %> " alt="">
+          <% } else{%> 
+          <i class="fa-solid fa-user" style="color: aliceblue;"></i>
+          <% } %> 
+          <div>
+            
+           <a href="/users/profile"><h3 class="invitado">Hola, <%= locals.invitado ? locals.usuario.firstName: "invitado"  %>   </h3></a> </div>
           <a class="full-logo" href="/"
             ><img class="logo" src="/img/logo.png" /><img
               class="goat"
@@ -22,7 +31,7 @@
             <ul>
               <li><a href="/shop">SHOP</a></li>
               <li><a href="/about">ABOUT US</a></li>
-              <li><a href="/log">LOGIN</a></li>
+              <li><a href="/users/log">LOGIN</a></li>
             </ul>
           </div>
           <div class="cart-icon">

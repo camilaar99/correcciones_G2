@@ -1,6 +1,6 @@
 function recordameMiddleware(req, res, next) {
-    if (req.cookies.recordarme && !req.session.usuarioLogueado) {
-        const userFilePath = path.join(__dirname, '../data/usersDataBase.json');
+    if (req.cookies.recordame && !req.session.usuarioLogueado) {
+        const userFilePath = path.join(__dirname, '../data/users.json');
         let user = JSON.parse(fs.readFileSync(userFilePath, 'utf-8'));
         let usersJSON = user;
         for (let i = 0; i < usersJSON.length; i++) {

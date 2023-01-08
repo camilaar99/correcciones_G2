@@ -9,7 +9,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const session=require('express-session');
 
-
+const recordameMiddleware=require('./middlewares/recordameMiddleware');
+const invitadoMiddleware=require('./middlewares/invitadoMiddleware');
 const mainRouter=require('./routes/main');
 const productRouter=require('./routes/product');
 const shopRouter=require('./routes/shop');
@@ -17,7 +18,7 @@ const aboutRouter=require('./routes/about');
 const contactRouter=require('./routes/contact');
 const cartRouter=require('./routes/cart');
 const usersRouter=require('./routes/users');
-const recordameMiddleware=require('./middlewares/recordameMiddleware')
+
 
 
 // view engine setup
@@ -46,8 +47,11 @@ app.set('views', path.join(__dirname, 'views'));
 
 
 /*---View app---*/
+
+app.use(express.static(publicPath));
+
 app.use(recordameMiddleware);
-app.use(express.static(publicPath))
+app.use(invitadoMiddleware);
 app.use('/', mainRouter);
 app.use('/product', productRouter);
 app.use('/shop',shopRouter);

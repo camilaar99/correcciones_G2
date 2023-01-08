@@ -6,6 +6,7 @@ const productsController=require('../controllers/productsController')
 const multer=require('multer');
 const path=require('path');
 const {body}=require('express-validator');
+const adminMiddleware = require('../middlewares/adminMiddleware');
 const storage=multer.diskStorage({
     destination:(req, file, cb)=>{
         let ruta=(path.join(__dirname,'..','..','./public/img'))
@@ -35,19 +36,20 @@ const validarCrearProducto = [
 
 
 /*** CREATE ONE PRODUCT ***/ 
-router.get('/crear', productsController.create); 
+router.get('/crear',adminMiddleware, productsController.create); 
 router.post('/shop', upload.single('imagen'),validarCrearProducto, productsController.store); 
+
+
+// /*** EDIT ONE PRODUCT ***/ 
+router.get('/edit',adminMiddleware, productsController.editPage);
+router.get('/edit/:id', adminMiddleware,productsController.edit); 
+router.put('/:id', upload.single('imagen'), productsController.update); 
+
 
 /* Devolver un producto */
 
 router.get('/:id', productsController.productoDetail);
 
-
-// /*** EDIT ONE PRODUCT ***/ 
-router.get('/edit/:id', productsController.edit); 
-router.put('/:id', upload.single('imagen'), productsController.update); 
-
-
 /*** DELETE ONE PRODUCT***/ 
-router.delete('/:id/delete', productsController.destroy); 
+router.delete('/:id/delete',adminMiddleware, productsController.destroy); 
 module.exports = router;

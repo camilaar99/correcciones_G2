@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 var express = require('express');
 const {validationResult}=require('express-validator');
-
+const bcrypt=require('bcryptjs');
 const userFilePath = path.join(__dirname, '../data/users.json');
 let user = JSON.parse(fs.readFileSync(userFilePath, 'utf-8'));
 
@@ -30,26 +30,20 @@ const controller = {
             "firstName": req.body.firstName,
             "lastName": req.body.lastName,
             "email": req.body.email,
-            "password": req.body.password,
+            "password": bcrypt.hashSync(req.body.password,10),
             "type": req.body.type,
         }
 
         //res.send(req.file)
 		
-		 if (req.file) {
+		 
 			let itemNuevo = { id: nuevoId, ...req.body, avatar: req.file.filename }
 			nuevoUsuario.push(itemNuevo)
 			//escribiendo el nuevo array en el archivo
 			fs.writeFileSync(userFilePath, JSON.stringify(nuevoUsuario))
 			res.redirect('./log')
-		 }
-		 else {
-            let itemNuevo = { id: nuevoId, ...req.body, avatar: "cristiano.jpg" }
-			nuevoUsuario.push(itemNuevo)
-			//escribiendo el nuevo array en el archivo
-			fs.writeFileSync(userFilePath, JSON.stringify(nuevoUsuario))
-			res.redirect('./log')
-		 }	
+		 
+		
         }
         else{
 			res.render('register',{errores:errors.array(), old: req.body})
@@ -65,12 +59,14 @@ const controller = {
             let usersJSON=user;
             let usuarioALoguearse;
             for (let i=0; i<usersJSON.length; i++ ){
-                if (usersJSON[i].email==req.body.email && usersJSON[i].password==req.body.password){
+                if (usersJSON[i].email==req.body.email && bcrypt.compareSync(req.body.password, usersJSON[i].password)){
                     let usuarioALoguearse=usersJSON[i];
                     
                     req.session.usuarioLogueado=usuarioALoguearse;
+					
 
 					 if (usuarioALoguearse.type=="Admin"){
+						req.session.usuarioAdmin=usuarioALoguearse;
 					 	res.render('administrator')
 					 }
 					 else{
@@ -84,7 +80,7 @@ const controller = {
                 res.render('log', {errors: [{msg: 'Credenciales inválidas'}]})
             }
 
-            if (req.body.recordarme){
+            if (req.body.recordame){
                 res.cookie('recordame', req.session.usuarioLogueado.email, {maxAge: 60000});
             }
         }
@@ -187,6 +183,17 @@ const controller = {
 		fs.writeFileSync(userFilePath, JSON.stringify(nuevoUsuarios));
 		users = JSON.parse(fs.readFileSync(userFilePath, 'utf-8'));
 		res.redirect('/users/admin/listar')
+    },
+
+	perfilUsuario: (req,res)=>{
+		users = JSON.parse(fs.readFileSync(userFilePath, 'utf-8'));
+		const id_usuario = res.locals.usuario.id;
+		
+		res.render('perfil', { usuario: res.locals.usuario })
+	},
+	logout: (req, res)=>{
+        req.session.destroy();
+        return res.redirect('/');
     }
 
 };

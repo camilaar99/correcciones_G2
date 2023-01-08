@@ -5,7 +5,8 @@ const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 const { body } = require('express-validator');
-//const authMiddleware=require('../middlewares/authMiddleware')
+const adminMiddleware=require('../middlewares/adminMiddleware');
+const userModel=require('../models/User');
 //const guestMiddleware=require('../middlewares/guestMiddleware')
 
 const storage = multer.diskStorage({
@@ -23,11 +24,48 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 
 const validarCrear=[
-    body('firstName').notEmpty().withMessage('El campo nombre no puede estar vacío'),
-    body('lastName').notEmpty().withMessage('El campo apellido no puede estar vacío'),
-    body('password').notEmpty().withMessage('El campo contraseña no puede estar vacío'),
+    // body('firstName').notEmpty().withMessage('El campo nombre no puede estar vacío'),
+    // body('lastName').notEmpty().withMessage('El campo apellido no puede estar vacío'),
+    // body('password').notEmpty().withMessage('El campo contraseña no puede estar vacío'),
    
-    body('email').isEmail().withMessage('Campo email no válido')
+    // body('email').isEmail().withMessage('Campo email no válido')
+    body('email')
+        .notEmpty().withMessage('El campo email no puede estar vacío').bail()
+        .isEmail().withMessage('Debes ingresar un email válido').bail()
+        .custom((value, {req})=>{
+            let userInDB=userModel.findByField('email',req.body.email);
+            if (userInDB){
+                throw new Error ('Usuario ya registrado, inicie sesión');
+            }
+            else {
+                return true;
+            }
+        }),
+    body('firstName')
+        .notEmpty().withMessage('El campo nombre no puede estar vacío'),
+    body('password')
+        .notEmpty().withMessage('El campo password no puede estar vacío').bail()
+        .isLength({min:3}).withMessage('La contraseña debe tener mas de 3 caracteres'),
+        body('avatar').custom((value, {req})=>{
+            let file = req.file;
+            let acceptedExtension= ['.jpg', '.png', '.gif', '.jpeg'];
+            
+            
+            if (file){
+                let fileExtension=path.extname(file.originalname)
+                if (acceptedExtension.includes(fileExtension)){
+                    return true;
+                }
+                else{
+                    throw new Error ('Extensión de archivo no permitida');
+                }
+                
+            }
+            else{
+                throw new Error ('Tienes que subir una imagen');
+            }
+            
+        })
 ]
 
 const validarLogin = [
@@ -43,6 +81,7 @@ const validarLogin = [
 
 // ************ Controller Require ************
 const userController = require('../controllers/userController');
+const authMiddleware = require('../middlewares/authMiddleware');
 //const { route } = require('.');
 
 /*** GET ALL PRODUCTS ***/
@@ -54,20 +93,23 @@ router.post('/log',upload.single('avatar'), validarCrear, userController.saveReg
 router.get('/log', userController.login);
 router.post('/', validarLogin, userController.saveLogin);
 
-router.get('/admin', userController.paginaAdmin);
+router.get('/admin', adminMiddleware, userController.paginaAdmin);
 
 
-router.get('/admin/listar', userController.listarUsuarios);
+router.get('/admin/listar',adminMiddleware, userController.listarUsuarios);
 
 
 
 
-router.get('/edit/:id',userController.editarVista);
-router.put('/admin/listar',upload.single('avatar'),userController.saveEdit);
+router.get('/edit/:id',adminMiddleware,userController.editarVista);
+router.put('/admin/listar', adminMiddleware,upload.single('avatar'),userController.saveEdit);
 
-router.delete('/:id/delete', userController.deleteUser)
+router.delete('/:id/delete', adminMiddleware, userController.deleteUser)
+
+router.get('/profile',authMiddleware, userController.perfilUsuario);
 
 
+router.get('/logout', userController.logout)
 //router.get('/solousuarios',authMiddleware, (req,res)=>{ res.send('Hola '+ req.session.usuarioLogueado.email)});
 // /*** CREATE ONE PRODUCT ***/ 
 //router.get('/create/', productsController.create); 

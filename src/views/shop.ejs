@@ -70,427 +70,183 @@
         </form>
       </div>
       <div class="shop-products-a">
+
+        
         <div class="group-x">GRUPO A</div>
+        
         <div class="group-products">
+          <% for (product of locals.products) {%> 
+            <% if (product.grupo =="GRUPO A") {%> 
           <article class="product">
             <div class="img-box">
-              <a href="/product"><img class="product-img" src="/img/argentina-camiseta.png" /></a>
+              <a href="/product/<%= product.id %> "><img class="product-img" src="/img/argentina-camiseta.png" /></a>
             </div>
             <div>
               <ul class="product-info">
-                <li class="description"><a href="/product">CAMISETA HOME ARGENTINA</a></li>
-                <li class="player"><a href="/product">GOAT Lionel Messi</a></li>
-                <li class="price"><a href="/product">$ 28,900</a></li>
+                <li class="description"><a href="/product">CAMISETA <%= product.teamName %> </a></li>
+                <li class="player"><a href="/product">GOAT <%= product.jugador %></a></li>
+                <li class="price"><a href="/product">$<%= product.price %></a></li>
               </ul>
             </div>
           </article>
-          <article class="product">
-            <div class="img-box">
-              <a href="/product"><img class="product-img" src="/img/argentina-jugador.png" /></a>
-            </div>
-            <div>
-              <ul class="product-info">
-                <li class="description"><a href="/product">CAMISETA HOME ARGENTINA</a></li>
-                <li class="player"><a href="/product">GOAT Lionel Messi</a></li>
-                <li class="price"><a href="/product">$ 28,900</a></li>
-              </ul>
-            </div>
-          </article>
-          <article class="product">
-            <div class="img-box">
-              <a href="/product"><img class="product-img" src="/img/argentina-camiseta.png" /></a>
-            </div>
-            <div>
-              <ul class="product-info">
-                <li class="description"><a href="/product">CAMISETA HOME ARGENTINA</a></li>
-                <li class="player"><a href="/product">GOAT Lionel Messi</a></li>
-                <li class="price"><a href="/product">$ 28,900</a></li>
-              </ul>
-            </div>
-          </article>
-          <article class="product">
-            <div class="img-box">
-              <a href="/product"><img class="product-img" src="/img/argentina-jugador.png" /></a>
-            </div>
-            <div>
-              <ul class="product-info">
-                <li class="description"><a href="/product">CAMISETA HOME ARGENTINA</a></li>
-                <li class="player"><a href="/product">GOAT Lionel Messi</a></li>
-                <li class="price"><a href="/product">$ 28,900</a></li>
-              </ul>
-            </div>
-          </article>
+          <% } %> 
+          <% } %> 
+          
         </div>
       </div>
       <div class="shop-products-b">
         <div class="group-y">GRUPO B</div>
         <div class="group-products">
-          <article class="product">
-            <div class="img-box">
-              <a href="/product/3"><img class="product-img" src="/img/argentina-camiseta.png" /></a>
-            </div>
-            <div>
-              <ul class="product-info">
-                <li class="description"><a href="/product/3">CAMISETA HOME ARGENTINA</a></li>
-                <li class="player"><a href="/product/3">GOAT Lionel Messi</a></li>
-                <li class="price"><a href="/product/3">$ 28,900</a></li>
-              </ul>
-            </div>
-          </article>
-          <article class="product">
-            <div class="img-box">
-              <a href="/product"><img class="product-img" src="/img/argentina-jugador.png" /></a>
-            </div>
-            <div>
-              <ul class="product-info">
-                <li class="description"><a href="/product">CAMISETA HOME ARGENTINA</a></li>
-                <li class="player"><a href="/product">GOAT Lionel Messi</a></li>
-                <li class="price"><a href="/product">$ 28,900</a></li>
-              </ul>
-            </div>
-          </article>
-          <article class="product">
-            <div class="img-box">
-              <a href="/product"><img class="product-img" src="/img/argentina-camiseta.png" /></a>
-            </div>
-            <div>
-              <ul class="product-info">
-                <li class="description"><a href="/product">CAMISETA HOME ARGENTINA</a></li>
-                <li class="player"><a href="/product">GOAT Lionel Messi</a></li>
-                <li class="price"><a href="/product">$ 28,900</a></li>
-              </ul>
-            </div>
-          </article>
-          <article class="product">
-            <div class="img-box">
-              <a href="/product"><img class="product-img" src="/img/argentina-jugador.png" /></a>
-            </div>
-            <div>
-              <ul class="product-info">
-                <li class="description"><a href="/product">CAMISETA HOME ARGENTINA</a></li>
-                <li class="player"><a href="/product">GOAT Lionel Messi</a></li>
-                <li class="price"><a href="/product">$ 28,900</a></li>
-              </ul>
-            </div>
-          </article>
+          <% for (product of locals.products) {%> 
+            <% if (product.grupo =="GRUPO B") {%> 
+              <article class="product">
+                <div class="img-box">
+                  <a href="/product/<%= product.id %> "><img class="product-img" src="/img/argentina-camiseta.png" /></a>
+                </div>
+                <div>
+                  <ul class="product-info">
+                    <li class="description"><a href="/product">CAMISETA <%= product.teamName %> </a></li>
+                    <li class="player"><a href="/product">GOAT <%= product.jugador %></a></li>
+                    <li class="price"><a href="/product">$<%= product.price %></a></li>
+                  </ul>
+                </div>
+              </article>
+          <% } %> 
+          <% } %> 
+          
+          
         </div>
       </div>
       <div class="shop-products-a">
         <div class="group-x">GRUPO C</div>
         <div class="group-products">
-          <article class="product">
-            <div class="img-box">
-              <a href="/product"><img class="product-img" src="/img/argentina-camiseta.png" /></a>
-            </div>
-            <div>
-              <ul class="product-info">
-                <li class="description"><a href="/product">CAMISETA HOME ARGENTINA</a></li>
-                <li class="player"><a href="/product">GOAT Lionel Messi</a></li>
-                <li class="price"><a href="/product">$ 28,900</a></li>
-              </ul>
-            </div>
-          </article>
-          <article class="product">
-            <div class="img-box">
-              <a href="/product"><img class="product-img" src="/img/argentina-jugador.png" /></a>
-            </div>
-            <div>
-              <ul class="product-info">
-                <li class="description"><a href="/product">CAMISETA HOME ARGENTINA</a></li>
-                <li class="player"><a href="/product">GOAT Lionel Messi</a></li>
-                <li class="price"><a href="/product">$ 28,900</a></li>
-              </ul>
-            </div>
-          </article>
-          <article class="product">
-            <div class="img-box">
-              <a href="/product"><img class="product-img" src="/img/argentina-camiseta.png" /></a>
-            </div>
-            <div>
-              <ul class="product-info">
-                <li class="description"><a href="/product">CAMISETA HOME ARGENTINA</a></li>
-                <li class="player"><a href="/product">GOAT Lionel Messi</a></li>
-                <li class="price"><a href="/product">$ 28,900</a></li>
-              </ul>
-            </div>
-          </article>
-          <article class="product">
-            <div class="img-box">
-              <a href="/product"><img class="product-img" src="/img/argentina-jugador.png" /></a>
-            </div>
-            <div>
-              <ul class="product-info">
-                <li class="description"><a href="/product">CAMISETA HOME ARGENTINA</a></li>
-                <li class="player"><a href="/product">GOAT Lionel Messi</a></li>
-                <li class="price"><a href="/product">$ 28,900</a></li>
-              </ul>
-            </div>
-          </article>
+          <% for (product of locals.products) {%> 
+            <% if (product.grupo =="GRUPO C") {%> 
+              <article class="product">
+                <div class="img-box">
+                  <a href="/product/<%= product.id %> "><img class="product-img" src="/img/argentina-camiseta.png" /></a>
+                </div>
+                <div>
+                  <ul class="product-info">
+                    <li class="description"><a href="/product">CAMISETA <%= product.teamName %> </a></li>
+                    <li class="player"><a href="/product">GOAT <%= product.jugador %></a></li>
+                    <li class="price"><a href="/product">$<%= product.price %></a></li>
+                  </ul>
+                </div>
+              </article>
+          <% } %> 
+          <% } %> 
+          
         </div>
       </div>
       <div class="shop-products-b">
         <div class="group-y">GRUPO D</div>
         <div class="group-products">
-          <article class="product">
-            <div class="img-box">
-              <a href="/product"><img class="product-img" src="/img/argentina-camiseta.png" /></a>
-            </div>
-            <div>
-              <ul class="product-info">
-                <li class="description"><a href="/product">CAMISETA HOME ARGENTINA</a></li>
-                <li class="player"><a href="/product">GOAT Lionel Messi</a></li>
-                <li class="price"><a href="/product">$ 28,900</a></li>
-              </ul>
-            </div>
-          </article>
-          <article class="product">
-            <div class="img-box">
-              <a href="/product"><img class="product-img" src="/img/argentina-jugador.png" /></a>
-            </div>
-            <div>
-              <ul class="product-info">
-                <li class="description"><a href="/product">CAMISETA HOME ARGENTINA</a></li>
-                <li class="player"><a href="/product">GOAT Lionel Messi</a></li>
-                <li class="price"><a href="/product">$ 28,900</a></li>
-              </ul>
-            </div>
-          </article>
-          <article class="product">
-            <div class="img-box">
-              <a href="/product"><img class="product-img" src="/img/argentina-camiseta.png" /></a>
-            </div>
-            <div>
-              <ul class="product-info">
-                <li class="description"><a href="/product">CAMISETA HOME ARGENTINA</a></li>
-                <li class="player"><a href="/product">GOAT Lionel Messi</a></li>
-                <li class="price"><a href="/product">$ 28,900</a></li>
-              </ul>
-            </div>
-          </article>
-          <article class="product">
-            <div class="img-box">
-              <a href="/product"><img class="product-img" src="/img/argentina-jugador.png" /></a>
-            </div>
-            <div>
-              <ul class="product-info">
-                <li class="description"><a href="/product">CAMISETA HOME ARGENTINA</a></li>
-                <li class="player"><a href="/product">GOAT Lionel Messi</a></li>
-                <li class="price"><a href="/product">$ 28,900</a></li>
-              </ul>
-            </div>
-          </article>
+          <% for (product of locals.products) {%> 
+            <% if (product.grupo =="GRUPO D") {%> 
+              <article class="product">
+                <div class="img-box">
+                  <a href="/product/<%= product.id %> "><img class="product-img" src="/img/argentina-camiseta.png" /></a>
+                </div>
+                <div>
+                  <ul class="product-info">
+                    <li class="description"><a href="/product">CAMISETA <%= product.teamName %> </a></li>
+                    <li class="player"><a href="/product">GOAT <%= product.jugador %></a></li>
+                    <li class="price"><a href="/product">$<%= product.price %></a></li>
+                  </ul>
+                </div>
+              </article>
+          <% } %> 
+          <% } %> 
+          
         </div>
       </div>
       <div class="shop-products-a">
         <div class="group-x">GRUPO E</div>
         <div class="group-products">
-          <article class="product">
-            <div class="img-box">
-              <a href="/product"><img class="product-img" src="/img/argentina-camiseta.png" /></a>
-            </div>
-            <div>
-              <ul class="product-info">
-                <li class="description"><a href="/product">CAMISETA HOME ARGENTINA</a></li>
-                <li class="player"><a href="/product">GOAT Lionel Messi</a></li>
-                <li class="price"><a href="/product">$ 28,900</a></li>
-              </ul>
-            </div>
-          </article>
-          <article class="product">
-            <div class="img-box">
-              <a href="/product"><img class="product-img" src="/img/argentina-jugador.png" /></a>
-            </div>
-            <div>
-              <ul class="product-info">
-                <li class="description"><a href="/product">CAMISETA HOME ARGENTINA</a></li>
-                <li class="player"><a href="/product">GOAT Lionel Messi</a></li>
-                <li class="price"><a href="/product">$ 28,900</a></li>
-              </ul>
-            </div>
-          </article>
-          <article class="product">
-            <div class="img-box">
-              <a href="/product"><img class="product-img" src="/img/argentina-camiseta.png" /></a>
-            </div>
-            <div>
-              <ul class="product-info">
-                <li class="description"><a href="/product">CAMISETA HOME ARGENTINA</a></li>
-                <li class="player"><a href="/product">GOAT Lionel Messi</a></li>
-                <li class="price"><a href="/product">$ 28,900</a></li>
-              </ul>
-            </div>
-          </article>
-          <article class="product">
-            <div class="img-box">
-              <a href="/product"><img class="product-img" src="/img/argentina-jugador.png" /></a>
-            </div>
-            <div>
-              <ul class="product-info">
-                <li class="description"><a href="/product">CAMISETA HOME ARGENTINA</a></li>
-                <li class="player"><a href="/product">GOAT Lionel Messi</a></li>
-                <li class="price"><a href="/product">$ 28,900</a></li>
-              </ul>
-            </div>
-          </article>
+          <% for (product of locals.products) {%> 
+            <% if (product.grupo =="GRUPO E") {%> 
+              <article class="product">
+                <div class="img-box">
+                  <a href="/product/<%= product.id %> "><img class="product-img" src="/img/argentina-camiseta.png" /></a>
+                </div>
+                <div>
+                  <ul class="product-info">
+                    <li class="description"><a href="/product">CAMISETA <%= product.teamName %> </a></li>
+                    <li class="player"><a href="/product">GOAT <%= product.jugador %></a></li>
+                    <li class="price"><a href="/product">$<%= product.price %></a></li>
+                  </ul>
+                </div>
+              </article>
+          <% } %> 
+          <% } %> 
+          
         </div>
       </div>
       <div class="shop-products-b">
         <div class="group-y">GRUPO F</div>
         <div class="group-products">
-          <article class="product">
-            <div class="img-box">
-              <a href="/product"><img class="product-img" src="/img/argentina-camiseta.png" /></a>
-            </div>
-            <div>
-              <ul class="product-info">
-                <li class="description"><a href="/product">CAMISETA HOME ARGENTINA</a></li>
-                <li class="player"><a href="/product">GOAT Lionel Messi</a></li>
-                <li class="price"><a href="/product">$ 28,900</a></li>
-              </ul>
-            </div>
-          </article>
-          <article class="product">
-            <div class="img-box">
-              <a href="/product"><img class="product-img" src="/img/argentina-jugador.png" /></a>
-            </div>
-            <div>
-              <ul class="product-info">
-                <li class="description"><a href="/product">CAMISETA HOME ARGENTINA</a></li>
-                <li class="player"><a href="/product">GOAT Lionel Messi</a></li>
-                <li class="price"><a href="/product">$ 28,900</a></li>
-              </ul>
-            </div>
-          </article>
-          <article class="product">
-            <div class="img-box">
-              <a href="/product"><img class="product-img" src="/img/argentina-camiseta.png" /></a>
-            </div>
-            <div>
-              <ul class="product-info">
-                <li class="description"><a href="/product">CAMISETA HOME ARGENTINA</a></li>
-                <li class="player"><a href="/product">GOAT Lionel Messi</a></li>
-                <li class="price"><a href="/product">$ 28,900</a></li>
-              </ul>
-            </div>
-          </article>
-          <article class="product">
-            <div class="img-box">
-              <a href="/product"><img class="product-img" src="/img/argentina-jugador.png" /></a>
-            </div>
-            <div>
-              <ul class="product-info">
-                <li class="description"><a href="/product">CAMISETA HOME ARGENTINA</a></li>
-                <li class="player"><a href="/product">GOAT Lionel Messi</a></li>
-                <li class="price"><a href="/product">$ 28,900</a></li>
-              </ul>
-            </div>
-          </article>
+          <% for (product of locals.products) {%> 
+            <% if (product.grupo =="GRUPO F") {%> 
+              <article class="product">
+                <div class="img-box">
+                  <a href="/product/<%= product.id %> "><img class="product-img" src="/img/argentina-camiseta.png" /></a>
+                </div>
+                <div>
+                  <ul class="product-info">
+                    <li class="description"><a href="/product">CAMISETA <%= product.teamName %> </a></li>
+                    <li class="player"><a href="/product">GOAT <%= product.jugador %></a></li>
+                    <li class="price"><a href="/product">$<%= product.price %></a></li>
+                  </ul>
+                </div>
+              </article>
+          <% } %> 
+          <% } %> 
+          
         </div>
       </div>
       <div class="shop-products-a">
         <div class="group-x">GRUPO G</div>
         <div class="group-products">
-          <article class="product">
-            <div class="img-box">
-              <a href="/product"><img class="product-img" src="/img/argentina-camiseta.png" /></a>
-            </div>
-            <div>
-              <ul class="product-info">
-                <li class="description"><a href="/product">CAMISETA HOME ARGENTINA</a></li>
-                <li class="player"><a href="/product">GOAT Lionel Messi</a></li>
-                <li class="price"><a href="/product">$ 28,900</a></li>
-              </ul>
-            </div>
-          </article>
-          <article class="product">
-            <div class="img-box">
-              <a href="/product"><img class="product-img" src="/img/argentina-jugador.png" /></a>
-            </div>
-            <div>
-              <ul class="product-info">
-                <li class="description"><a href="/product">CAMISETA HOME ARGENTINA</a></li>
-                <li class="player"><a href="/product">GOAT Lionel Messi</a></li>
-                <li class="price"><a href="/product">$ 28,900</a></li>
-              </ul>
-            </div>
-          </article>
-          <article class="product">
-            <div class="img-box">
-              <a href="/product"><img class="product-img" src="/img/argentina-camiseta.png" /></a>
-            </div>
-            <div>
-              <ul class="product-info">
-                <li class="description"><a href="/product">CAMISETA HOME ARGENTINA</a></li>
-                <li class="player"><a href="/product">GOAT Lionel Messi</a></li>
-                <li class="price"><a href="/product">$ 28,900</a></li>
-              </ul>
-            </div>
-          </article>
-          <article class="product">
-            <div class="img-box">
-              <a href="/product"><img class="product-img" src="/img/argentina-jugador.png" /></a>
-            </div>
-            <div>
-              <ul class="product-info">
-                <li class="description"><a href="/product">CAMISETA HOME ARGENTINA</a></li>
-                <li class="player"><a href="/product">GOAT Lionel Messi</a></li>
-                <li class="price"><a href="/product">$ 28,900</a></li>
-              </ul>
-            </div>
-          </article>
+          <% for (product of locals.products) {%> 
+            <% if (product.grupo =="GRUPO G") {%> 
+              <article class="product">
+                <div class="img-box">
+                  <a href="/product/<%= product.id %> "><img class="product-img" src="/img/argentina-camiseta.png" /></a>
+                </div>
+                <div>
+                  <ul class="product-info">
+                    <li class="description"><a href="/product">CAMISETA <%= product.teamName %> </a></li>
+                    <li class="player"><a href="/product">GOAT <%= product.jugador %></a></li>
+                    <li class="price"><a href="/product">$<%= product.price %></a></li>
+                  </ul>
+                </div>
+              </article>
+          <% } %> 
+          <% } %> 
+          
         </div>
       </div>
       <div class="shop-products-b">
         <div class="group-y">GRUPO H</div>
         <div class="group-products">
-          <article class="product">
-            <div class="img-box">
-              <a href="/product"><img class="product-img" src="/img/argentina-camiseta.png" /></a>
-            </div>
-            <div>
-              <ul class="product-info">
-                <li class="description"><a href="/product">CAMISETA HOME ARGENTINA</a></li>
-                <li class="player"><a href="/product">GOAT Lionel Messi</a></li>
-                <li class="price"><a href="/product">$ 28,900</a></li>
-              </ul>
-            </div>
-          </article>
-          <article class="product">
-            <div class="img-box">
-              <a href="/product"><img class="product-img" src="/img/argentina-jugador.png" /></a>
-            </div>
-            <div>
-              <ul class="product-info">
-                <li class="description"><a href="/product">CAMISETA HOME ARGENTINA</a></li>
-                <li class="player"><a href="/product">GOAT Lionel Messi</a></li>
-                <li class="price"><a href="/product">$ 28,900</a></li>
-              </ul>
-            </div>
-          </article>
-          <article class="product">
-            <div class="img-box">
-              <a href="/product"><img class="product-img" src="/img/argentina-camiseta.png" /></a>
-            </div>
-            <div>
-              <ul class="product-info">
-                <li class="description"><a href="/product">CAMISETA HOME ARGENTINA</a></li>
-                <li class="player"><a href="/product">GOAT Lionel Messi</a></li>
-                <li class="price"><a href="/product">$ 28,900</a></li>
-              </ul>
-            </div>
-          </article>
-          <article class="product">
-            <div class="img-box">
-              <a href="/product"><img class="product-img" src="/img/argentina-jugador.png" /></a>
-            </div>
-            <div>
-              <ul class="product-info">
-                <li class="description"><a href="/product">CAMISETA HOME ARGENTINA</a></li>
-                <li class="player"><a href="/product">GOAT Lionel Messi</a></li>
-                <li class="price"><a href="/product">$ 28,900</a></li>
-              </ul>
-            </div>
-          </article>
+          <% for (product of locals.products) {%> 
+            <% if (product.grupo =="GRUPO H") {%> 
+              <article class="product">
+                <div class="img-box">
+                  <a href="/product/<%= product.id %> "><img class="product-img" src="/img/argentina-camiseta.png" /></a>
+                </div>
+                <div>
+                  <ul class="product-info">
+                    <li class="description"><a href="/product">CAMISETA <%= product.teamName %> </a></li>
+                    <li class="player"><a href="/product">GOAT <%= product.jugador %></a></li>
+                    <li class="price"><a href="/product">$<%= product.price %></a></li>
+                  </ul>
+                </div>
+              </article>
+          <% } %> 
+          <% } %> 
+          
         </div>
       </div>
     </main>

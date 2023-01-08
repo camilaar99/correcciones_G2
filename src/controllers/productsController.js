@@ -89,6 +89,13 @@ const controller = {
 
 	},
 
+
+	editPage: (req,res)=>{
+		products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
+		
+	
+		res.render('modificar',{usuarios: products})
+	},
 	// Update - Form to edit
 	edit: (req, res) => {
 		products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
@@ -150,7 +157,7 @@ const controller = {
 		let nuevoProductos = products.filter(valor => valor.id != id_producto)
 		fs.writeFileSync(productsFilePath, JSON.stringify(nuevoProductos));
 		products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
-		res.redirect('/product')
+		res.redirect('/product/edit')
 
 	}
 };

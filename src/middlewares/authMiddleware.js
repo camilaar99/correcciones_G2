@@ -3,7 +3,8 @@ function authMiddleware(req, res, next){
         next();
     }
     else{
-        res.send('Logueate primero')
+        let home='/'
+        res.send('Logueate primero, volver al home ${home}')
     }
 
 

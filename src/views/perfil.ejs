@@ -13,30 +13,25 @@
     
             </div>
             <div class="contenedor-edicion">
-                <% if (locals.usuarios) {%> 
-                    <% for (user of usuarios) {%> 
+                <% if (locals.usuario) {%> 
+                     
                 <div class="tarjeta-producto">
-                    <h2>Team: <%= user.teamName %> </h2>
-                    <h2>Jugador: <%= user.jugador %> </h2>
-                    <img src="/img/<%= user.imagen %> " alt="" class="foto-prod">
-                    <div class="contenedor-botones">
-                        <a href="/product/edit/<%= user.id %>" class="action-button edit">EDITAR</a>
-                                    <form action="/product/<%= user.id  %>/delete?_method=DELETE" method="POST"
-                                        style="display: flex">
-                                        <button type="submit" class="action-button delete">ELIMINAR</button>
-                                    </form>
-
-                    </div>
+                    <h2>Nombre: <%= usuario.firstName %> </h2>
+                    <h2>Apellido: <%= usuario.lastName %> </h2>
+                    <h2>Email: <%= usuario.email %> </h2>
+                    <h2>Rol: <%= usuario.type %> </h2>
+                    <img src="/img/users/<%= usuario.avatar %> " alt="" class="foto-prod">
+                    <a href="/users/logout" class="action-button edit">Cerrar sesión</a>
                 </div>
     
                 <% } %> 
-                <% } %> 
+              
             </div>
             
 
 
         </main>
-            <!-- <main>
+            <!-- <
 
                 <div class="contenedor-formulario2">
                     <div class="formulario-admin">

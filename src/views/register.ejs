@@ -24,12 +24,8 @@
             <h1>Regístrate</h1>
             <p>Crea tu cuenta</p>
             <form action="/users/log" method="POST" class="login" enctype="multipart/form-data" >
-              <input type="text" id="firstName" name="firstName" placeholder="NOMBRE" value="<% if (locals.old) {%>
-                <%= old.firstName  %>  
-                <% } %>" />
-                <input type="text" id="lastName" name="lastName" placeholder="APELLIDO" value="<% if (locals.old) {%>
-                  <%= old.lastName  %>  
-                  <% } %>" />
+              <input type="text" id="firstName" name="firstName" placeholder="NOMBRE" value="<%= locals.old && old.firstName ? old.firstName: null %>">
+                <input type="text" id="lastName" name="lastName" placeholder="APELLIDO" value="<%= locals.old && old.lastName ? old.lastName: null %>">
               
               <input type="email" id="email" name="email" placeholder="EMAIL" value=" <% if (locals.old) {%>
                 <%= old.email  %>  

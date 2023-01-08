@@ -7,7 +7,7 @@ let products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
 const mainController={
     mainView: function(req, res, next) {
         products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
-        res.render('shop')}
+        res.render('shop',{products})}
 }
 
 module.exports=mainController

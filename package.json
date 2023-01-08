@@ -18,16 +18,17 @@
   },
   "homepage": "https://github.com/PintosAlfredo/Grupo_2_Mundial2022#readme",
   "dependencies": {
-    "ejs": "^3.1.8",
-    "express": "^4.18.2",
-    "method-override": "^3.0.0",
-    "multer": "^1.4.5-lts.1",
+    "bcryptjs": "^2.4.3",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
     "express-session": "^1.17.3",
     "express-validator": "^6.14.2",
     "http-errors": "~1.6.3",
-    "morgan": "~1.9.1"
+    "method-override": "^3.0.0",
+    "morgan": "~1.9.1",
+    "multer": "^1.4.5-lts.1"
   },
   "devDependencies": {
     "express-generator": "^4.16.1",
