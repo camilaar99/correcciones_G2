@@ -7,24 +7,41 @@ let products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
 
 const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
-
+let db=require('../database/models');
+let sequelize=db.sequelize
 
 const controller = {
 	archivo: productsFilePath,
 
 
+	productView2: function(req,res){
+        // db.Product.findAll().then(function(result){
+        //     res.send(result)
+		// 	//res.render(result)
+        // })
+    },
+
 	productView: function (req, res, next) {
 		res.render('product')
+		// db.Product.findAll().then(function(result){
+        //     res.send(result)
+		// 	//res.render(result)
+        // })
 	},
 
 
 	productoDetail: (req, res) => {
 		const id = req.params.id;
-		const product = products.find(product => product.id == id);
+		// const product = products.find(product => product.id == id);
 
-		res.render('product', {
-			product
-		})
+		// res.render('product', {
+		// 	product
+		// })
+
+		db.Product.findByPk(id).then(function(result){
+            
+		res.render('product',{product: result})
+        })
 	},
 
 	// // Root - Show all products
@@ -57,28 +74,54 @@ const controller = {
 	store: (req, res) => {
 		let errors = validationResult(req);
 		if (errors.isEmpty()) {
-			const productsFilePath = path.join(__dirname, '../data/products.json');
-			let products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
-			products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
-			let indices = [];
-			products.forEach(function (elemento) {
-				indices.push(elemento.id)
+			// const productsFilePath = path.join(__dirname, '../data/products.json');
+			// let products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
+			// products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
+			// let indices = [];
+			// products.forEach(function (elemento) {
+			// 	indices.push(elemento.id)
+			// })
+			// let nuevoId = (Math.max(...indices)) + 1
+			// //agregar el nuevo item al array
+			// let nuevoProductos = products;
+
+			// inicio
+			db.Product.create({
+				teamName: req.body.teamName,
+				size: req.body.size,
+				jugador: req.body.jugador,
+				imagen: req.file.filename,
+				price: req.body.price,
+				
+			}).then(function(product){
+			res.redirect('/')
 			})
-			let nuevoId = (Math.max(...indices)) + 1
-			//agregar el nuevo item al array
-			let nuevoProductos = products;
 
 
-			if (req.file) {
-				let itemNuevo = { id: nuevoId, ...req.body, imagen: req.file.filename }
-				nuevoProductos.push(itemNuevo)
-				//escribiendo el nuevo array en el archivo
-				fs.writeFileSync(productsFilePath, JSON.stringify(nuevoProductos))
-				res.redirect('../shop')
-			}
-			else {
-				res.render('crear')
-			}
+		
+
+
+
+
+
+
+
+
+
+
+			//fin
+
+
+			// if (req.file) {
+			// 	let itemNuevo = { id: nuevoId, ...req.body, imagen: req.file.filename }
+			// 	nuevoProductos.push(itemNuevo)
+			// 	//escribiendo el nuevo array en el archivo
+			// 	fs.writeFileSync(productsFilePath, JSON.stringify(nuevoProductos))
+			// 	res.redirect('../shop')
+			// }
+			// else {
+			// 	res.render('crear')
+			// }
 		}
 		else {
 			res.render('crear', { errors: errors.array(), old: req.body })

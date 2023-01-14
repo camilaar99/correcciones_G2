@@ -11,6 +11,7 @@ const session=require('express-session');
 
 const recordameMiddleware=require('./middlewares/recordameMiddleware');
 const invitadoMiddleware=require('./middlewares/invitadoMiddleware');
+
 const mainRouter=require('./routes/main');
 const productRouter=require('./routes/product');
 const shopRouter=require('./routes/shop');
@@ -52,6 +53,7 @@ app.use(express.static(publicPath));
 
 app.use(recordameMiddleware);
 app.use(invitadoMiddleware);
+
 app.use('/', mainRouter);
 app.use('/product', productRouter);
 app.use('/shop',shopRouter);

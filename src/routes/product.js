@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 const productsController=require('../controllers/productsController')
-
+let db=require('../database/models');
+let sequelize=db.sequelize
 
 const multer=require('multer');
 const path=require('path');
@@ -32,12 +33,12 @@ const validarCrearProducto = [
 
 
 
-
+router.get('/probando',productsController.productView2)
 
 
 /*** CREATE ONE PRODUCT ***/ 
 router.get('/crear',adminMiddleware, productsController.create); 
-router.post('/shop', upload.single('imagen'),validarCrearProducto, productsController.store); 
+router.post('/', upload.single('imagen'),validarCrearProducto, productsController.store); 
 
 
 // /*** EDIT ONE PRODUCT ***/ 

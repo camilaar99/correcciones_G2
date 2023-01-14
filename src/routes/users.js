@@ -5,8 +5,11 @@ const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 const { body } = require('express-validator');
-const adminMiddleware=require('../middlewares/adminMiddleware');
-const userModel=require('../models/User');
+
+let db=require('../database/models');
+let sequelize=db.sequelize
+
+
 //const guestMiddleware=require('../middlewares/guestMiddleware')
 
 const storage = multer.diskStorage({
@@ -32,15 +35,16 @@ const validarCrear=[
     body('email')
         .notEmpty().withMessage('El campo email no puede estar vacío').bail()
         .isEmail().withMessage('Debes ingresar un email válido').bail()
-        .custom((value, {req})=>{
-            let userInDB=userModel.findByField('email',req.body.email);
-            if (userInDB){
-                throw new Error ('Usuario ya registrado, inicie sesión');
-            }
-            else {
-                return true;
-            }
-        }),
+        // .custom((value, {req})=>{
+        //     let userInDB=userModel.findByField('email',req.body.email);
+        //     if (userInDB){
+        //         throw new Error ('Usuario ya registrado, inicie sesión');
+        //     }
+        //     else {
+        //         return true;
+        //     }
+        // })
+        ,
     body('firstName')
         .notEmpty().withMessage('El campo nombre no puede estar vacío'),
     body('password')
@@ -80,12 +84,21 @@ const validarLogin = [
 
 
 // ************ Controller Require ************
+
+
 const userController = require('../controllers/userController');
 const authMiddleware = require('../middlewares/authMiddleware');
+const adminMiddleware=require('../middlewares/adminMiddleware');
 //const { route } = require('.');
 
 /*** GET ALL PRODUCTS ***/
 
+router.get('/prueba', (req,res)=>{
+    db.User.findAll().then(function(result){
+            res.send(result)
+		
+        })
+});
 router.get('/', (req,res)=>{res.send("Estas autenticado")})
 router.get('/register', userController.register);
 router.post('/log',upload.single('avatar'), validarCrear, userController.saveRegister);
@@ -93,16 +106,18 @@ router.post('/log',upload.single('avatar'), validarCrear, userController.saveReg
 router.get('/log', userController.login);
 router.post('/', validarLogin, userController.saveLogin);
 
+
+
 router.get('/admin', adminMiddleware, userController.paginaAdmin);
-
-
-router.get('/admin/listar',adminMiddleware, userController.listarUsuarios);
-
+router.get('/admin/listar',userController.listarUsuarios); 
 
 
 
-router.get('/edit/:id',adminMiddleware,userController.editarVista);
-router.put('/admin/listar', adminMiddleware,upload.single('avatar'),userController.saveEdit);
+
+
+
+router.get('/edit/:id',userController.editarVista);
+//router.put('/admin/listar', adminMiddleware,upload.single('avatar'),userController.saveEdit);
 
 router.delete('/:id/delete', adminMiddleware, userController.deleteUser)
 
