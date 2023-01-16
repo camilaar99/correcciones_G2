@@ -109,7 +109,14 @@ router.post('/', validarLogin, userController.saveLogin);
 
 
 router.get('/admin', adminMiddleware, userController.paginaAdmin);
-router.get('/admin/listar',userController.listarUsuarios); 
+router.get('/admin/listar',async (req,res)=>{
+    const users= await db.User.findAll()
+
+    res.render('listaUsuarios',{
+        usuarios: users
+    })
+
+}); 
 
 
 

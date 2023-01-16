@@ -35,7 +35,7 @@
             <p>Crea nuevos productos</p>
             </div>
 
-            <form action="/" method="post" class="login" enctype="multipart/form-data">
+            <form action="/product" method="post" class="login" enctype="multipart/form-data">
                 <div class="division">
                      <label for="teamName">teamName</label>
                      <input type="text" id="teamName" name="teamName" placeholder="Nombre teamName">
@@ -73,6 +73,22 @@
                      <label for="price">Precio del producto</label>
                      <input type="text" id="price" name="price" placeholder="Precio del producto">
                  </div>
+
+                 <div class="division">
+                    <label for="grupo">Seleccionar grupo:</label>
+                    <select name="grupo" id="grupo">
+                        <option value="">Elegí</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                        <option value="F">F</option>
+                        <option value="G">G</option>
+                        <option value="H">H</option>
+                        
+                    </select>
+                </div>
 
                  <div class="division">
                      <button class="botones-crear" type="submit">Crear</button>

@@ -52,7 +52,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(publicPath));
 
 app.use(recordameMiddleware);
-app.use(invitadoMiddleware);
+//app.use(invitadoMiddleware);
 
 app.use('/', mainRouter);
 app.use('/product', productRouter);

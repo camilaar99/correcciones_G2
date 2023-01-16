@@ -15,28 +15,22 @@ const controller = {
 
 
 	productView2: function(req,res){
-        // db.Product.findAll().then(function(result){
-        //     res.send(result)
+        db.Product.findAll().then(function(result){
+             res.send(result)
 		// 	//res.render(result)
-        // })
+         })
     },
 
 	productView: function (req, res, next) {
-		res.render('product')
-		// db.Product.findAll().then(function(result){
-        //     res.send(result)
-		// 	//res.render(result)
-        // })
+		db.Product.findAll().then(function (result) {
+            res.render('shop', { products: result })
+            //res.send(result)
+        })
 	},
 
 
 	productoDetail: (req, res) => {
 		const id = req.params.id;
-		// const product = products.find(product => product.id == id);
-
-		// res.render('product', {
-		// 	product
-		// })
 
 		db.Product.findByPk(id).then(function(result){
             
@@ -71,66 +65,39 @@ const controller = {
 		// 	// Do the magic
 	},
 	// Create -  Method to store
-	store: (req, res) => {
-		let errors = validationResult(req);
-		if (errors.isEmpty()) {
-			// const productsFilePath = path.join(__dirname, '../data/products.json');
-			// let products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
-			// products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
-			// let indices = [];
-			// products.forEach(function (elemento) {
-			// 	indices.push(elemento.id)
-			// })
-			// let nuevoId = (Math.max(...indices)) + 1
-			// //agregar el nuevo item al array
-			// let nuevoProductos = products;
-
-			// inicio
-			db.Product.create({
+	store: async function(req, res) {
+		try {
+			let errors = validationResult(req);
+			if (errors.isEmpty()) {
+			
+			let created= await db.Product.create({
 				teamName: req.body.teamName,
 				size: req.body.size,
 				jugador: req.body.jugador,
 				imagen: req.file.filename,
 				price: req.body.price,
+				grupo: req.body.grupo
 				
-			}).then(function(product){
-			res.redirect('/')
 			})
+			res.redirect('/product')
+			
 
-
-		
-
-
-
-
-
-
-
-
-
-
-			//fin
-
-
-			// if (req.file) {
-			// 	let itemNuevo = { id: nuevoId, ...req.body, imagen: req.file.filename }
-			// 	nuevoProductos.push(itemNuevo)
-			// 	//escribiendo el nuevo array en el archivo
-			// 	fs.writeFileSync(productsFilePath, JSON.stringify(nuevoProductos))
-			// 	res.redirect('../shop')
-			// }
-			// else {
-			// 	res.render('crear')
-			// }
 		}
 		else {
 			res.render('crear', { errors: errors.array(), old: req.body })
 		}
 
 
+		}
 
+		catch(e){
+			res.send(e)
+			console.log(e);
+		}
+		
 
-	},
+	}
+,
 
 
 	editPage: (req,res)=>{

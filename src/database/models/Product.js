@@ -27,10 +27,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false
     },
-    fecha_precio: {
-        type: DataTypes.DATE,
-        allowNull: false
-    }
+    
 
     };
     let config = {

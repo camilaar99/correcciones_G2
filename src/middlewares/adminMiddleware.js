@@ -1,9 +1,14 @@
 function adminMiddleware(req, res, next){
-    if (req.session.usuarioLogueado.type=="Admin" &&  req.session.usuarioLogueado ){
-        next()        
+    if (req.session.usuarioLogueado ){
+        if (req.session.usuarioLogueado.type=="Admin"  ){
+            next()        
+        }
+        else{
+            res.send('Está página es solo para administradores')
+        }
     }
     else{
-        res.send('Está página es solo para administradores')
+        res.send('logueate primero')
     }
 }
 

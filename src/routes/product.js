@@ -34,10 +34,10 @@ const validarCrearProducto = [
 
 
 router.get('/probando',productsController.productView2)
-
+router.get('/',productsController.productView)
 
 /*** CREATE ONE PRODUCT ***/ 
-router.get('/crear',adminMiddleware, productsController.create); 
+router.get('/crear', productsController.create); 
 router.post('/', upload.single('imagen'),validarCrearProducto, productsController.store); 
 
 
