@@ -1,21 +1,20 @@
-const fs = require('fs');
+//const fs = require('fs');
 const path = require('path');
 var express = require('express');
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
-const userFilePath = path.join(__dirname, '../data/users.json');
-let user = JSON.parse(fs.readFileSync(userFilePath, 'utf-8'));
+//const userFilePath = path.join(__dirname, '../data/users.json');
+//let user = JSON.parse(fs.readFileSync(userFilePath, 'utf-8'));
 let db = require('../database/models');
 let sequelize = db.sequelize;
-const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+//const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
 const controller = {
 	register: (req, res) => {
 		res.render('register')
 	},
 	saveRegister: (req, res) => {
-
-
+		
 		let errors = validationResult(req);
 		if (errors.isEmpty()) {
 			// users = JSON.parse(fs.readFileSync(userFilePath, 'utf-8'));
@@ -154,29 +153,37 @@ const controller = {
 		res.render('administrator')
 	},
 
-	listarUsuarios: (req, res) => {
-		db.User.findAll({ raw: true}).then(function(users){
-			res.redirect('/users/admin')
-			console.log(JSON.stringify(users))
-		
-		 })
+	listarUsuarios: async function (req, res) {
+		try {
+			const users = await db.User.findAll()
+			res.render('listaUsuarios', {
+				usuarios: users
+			})
+		} catch (error) {
+			res.send(error)
+		}
+
+
+
+
+
 	},
 
 	detail: (req, res) => {
 		// Do the magic
-	// 	users = JSON.parse(fs.readFileSync(userFilePath, 'utf-8'));
-	// 	const id_usuario = req.params.id;
-	// 	var elemento2;
-	// 	users.forEach(function buscar_posicion_desdeid(elemento) {
-	// 		if (elemento.id == id_usuario) {
-	// 			elemento2 = elemento;
-	// 		}
-	// 	})
-	// 	res.render('detalle-usuario', { id_usuario, 'usuario_mostrar': elemento2 })
-	db.User.findByPk(req.params.id).then((user)=>{
-		res.render('detalle-usuario', { id_usuario, 'usuario_mostrar': user })
-	})
-	 },
+		// 	users = JSON.parse(fs.readFileSync(userFilePath, 'utf-8'));
+		// 	const id_usuario = req.params.id;
+		// 	var elemento2;
+		// 	users.forEach(function buscar_posicion_desdeid(elemento) {
+		// 		if (elemento.id == id_usuario) {
+		// 			elemento2 = elemento;
+		// 		}
+		// 	})
+		// 	res.render('detalle-usuario', { id_usuario, 'usuario_mostrar': elemento2 })
+		db.User.findByPk(req.params.id).then((user) => {
+			res.render('detalle-usuario', { id_usuario, 'usuario_mostrar': user })
+		})
+	},
 
 	editarVista: (req, res) => {
 		// users = JSON.parse(fs.readFileSync(userFilePath, 'utf-8'));
@@ -188,74 +195,77 @@ const controller = {
 		// 	}
 		// })
 
-		db.User.findByPk(req.params.id).then((user)=>{
+		db.User.findByPk(req.params.id).then((user) => {
 			res.render('edit-user', { old: user })
 		})
 
 	},
 
-	saveEdit: (req, res) => {
-		//leer JSON y guardarlo en un array
-		users = JSON.parse(fs.readFileSync(userFilePath, 'utf-8'));
-		//leer el id del usuario desde el request
-		const id_usuario = Number(req.params.id);
-		//filter donde se devuelven todos los elemetos del array MENOS el pedido por request
-		let nuevoUsuarios = users.filter(valor => valor.id != id_usuario)
-		if (req.file) {
-			//agregar el nuevo item modificado al array sin el
-			let itemEditado = { id: id_usuario, ...req.body, avatar: req.file.filename }
-			nuevoUsuarios.push(itemEditado)
-			//escribiendo el nuevo array en el archivo
-			fs.writeFileSync(userFilePath, JSON.stringify(nuevoUsuarios))
+	saveEdit: async function (req, res) {
 
-			//volver a leer el nuevo archivo
-			users = JSON.parse(fs.readFileSync(userFilePath, 'utf-8'));
-			//devolver todo el objeto con el id que quiere el usuario, no se si esto está bien, solo lo hice para evitar un for 
-			var elemento2;
-			users.forEach(function buscar_posicion_desdeid(elemento) {
-				if (elemento.id == id_usuario) {
-					elemento2 = elemento;
+
+		try {
+
+			let errors = validationResult(req);
+			let id_usuario = req.params.id
+			if (errors.isEmpty()) {
+				
+				let edited = await db.User.update({
+					firstName: req.body.firstName,
+					lastName: req.body.lastName,
+					email: req.body.email,
+					type: req.body.type,
+					avatar: req.file.filename
+				}, {
+					where: {
+						id: id_usuario
+					}
+				})
+
+
+
+
+				res.redirect('/users/admin/listar')
+			}
+
+			else{
+
+				old={
+					id: id_usuario,
+					firstName: req.body.firstName,
+					lastName: req.body.lastName,
+					email: req.body.email,
+					type: req.body.type
 				}
-			})
-			console.log(req.file.filename)
-			res.render('listaUsuarios', { usuarios: users })
-			//res.render('detalle-usuario', { id_usuario, 'usuario_mostrar': elemento2 })
-		}
-		else {
-			//agregar el nuevo item modificado al array sin el
-			let itemEditado = { id: id_usuario, ...req.body, avatar: "cristiano.jpg" }
-			nuevoUsuarios.push(itemEditado)
-			//escribiendo el nuevo array en el archivo
-			fs.writeFileSync(userFilePath, JSON.stringify(nuevoUsuarios))
+				res.render('edit-user', { errors: errors.array(), old })
+			}
 
-			//volver a leer el nuevo archivo
-			users = JSON.parse(fs.readFileSync(userFilePath, 'utf-8'));
-			//devolver todo el objeto con el id que quiere el usuario, no se si esto está bien, solo lo hice para evitar un for 
-			var elemento2;
-			users.forEach(function buscar_posicion_desdeid(elemento) {
-				if (elemento.id == id_usuario) {
-					elemento2 = elemento;
-				}
-			})
-
-			res.render('listaUsuarios', { usuarios: users })
-			//res.render('detalle-usuario', { id_usuario, 'usuario_mostrar': elemento2 })
+		} catch (error) {
+			res.send(error)
 		}
+
+		
 	},
 
-	deleteUser: (req, res) => {
-		users = JSON.parse(fs.readFileSync(userFilePath, 'utf-8'));
-		//leer el id del usuario desde el request
-		const id_usuario = (req.params.id);
-		//filter donde se devuelven todos los elemetos del array MENOS el pedido por request
-		let nuevoUsuarios = users.filter(valor => valor.id != id_usuario)
-		fs.writeFileSync(userFilePath, JSON.stringify(nuevoUsuarios));
-		users = JSON.parse(fs.readFileSync(userFilePath, 'utf-8'));
+	deleteUser: async function(req, res) {
+		try {
+			let id_usuario=req.params.id;
+			let deleted= await db.User.destroy({
+			where: {
+				id: id_usuario
+			}
+		})
+
 		res.redirect('/users/admin/listar')
+			
+		} catch (error) {
+			res.send(error)
+		}
+		
 	},
 
 	perfilUsuario: (req, res) => {
-		users = JSON.parse(fs.readFileSync(userFilePath, 'utf-8'));
+		
 		const id_usuario = res.locals.usuario.id;
 
 		res.render('perfil', { usuario: res.locals.usuario })
@@ -263,7 +273,7 @@ const controller = {
 	logout: (req, res) => {
 		req.session.destroy();
 		res.redirect('/');
-		
+
 	}
 
 };

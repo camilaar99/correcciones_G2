@@ -15,6 +15,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false
     },
+    jugador:{
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     imagen: {
         type: DataTypes.STRING,
         allowNull: false
@@ -26,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     grupo: {
         type: DataTypes.STRING,
         allowNull: false
-    },
+    }
     
 
     };

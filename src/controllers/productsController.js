@@ -7,35 +7,35 @@ let products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
 
 const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
-let db=require('../database/models');
-let sequelize=db.sequelize
+let db = require('../database/models');
+let sequelize = db.sequelize
 
 const controller = {
 	archivo: productsFilePath,
 
 
-	productView2: function(req,res){
-        db.Product.findAll().then(function(result){
-             res.send(result)
-		// 	//res.render(result)
-         })
-    },
+	productView2: function (req, res) {
+		db.Product.findAll().then(function (result) {
+			res.send(result)
+			// 	//res.render(result)
+		})
+	},
 
 	productView: function (req, res, next) {
 		db.Product.findAll().then(function (result) {
-            res.render('shop', { products: result })
-            //res.send(result)
-        })
+			res.render('shop', { products: result })
+			//res.send(result)
+		})
 	},
 
 
 	productoDetail: (req, res) => {
 		const id = req.params.id;
 
-		db.Product.findByPk(id).then(function(result){
-            
-		res.render('product',{product: result})
-        })
+		db.Product.findByPk(id).then(function (result) {
+
+			res.render('product', { product: result })
+		})
 	},
 
 	// // Root - Show all products
@@ -65,109 +65,153 @@ const controller = {
 		// 	// Do the magic
 	},
 	// Create -  Method to store
-	store: async function(req, res) {
+	store: async function (req, res) {
 		try {
 			let errors = validationResult(req);
 			if (errors.isEmpty()) {
-			
-			let created= await db.Product.create({
-				teamName: req.body.teamName,
-				size: req.body.size,
-				jugador: req.body.jugador,
-				imagen: req.file.filename,
-				price: req.body.price,
-				grupo: req.body.grupo
-				
-			})
-			res.redirect('/product')
-			
+
+				let created = await db.Product.create({
+					teamName: req.body.teamName,
+					size: req.body.size,
+					jugador: req.body.jugador,
+					imagen: req.file.filename,
+					price: req.body.price,
+					grupo: req.body.grupo
+
+				})
+				res.redirect('/product')
+
+
+			}
+			else {
+				res.render('crear', { errors: errors.array(), old: req.body })
+			}
+
 
 		}
-		else {
-			res.render('crear', { errors: errors.array(), old: req.body })
-		}
 
-
-		}
-
-		catch(e){
+		catch (e) {
 			res.send(e)
 			console.log(e);
 		}
-		
+
 
 	}
-,
+	,
 
 
-	editPage: (req,res)=>{
-		products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
-		
-	
-		res.render('modificar',{usuarios: products})
+	editPage: async function (req, res) {
+
+		try {
+			let productos = await db.Product.findAll();
+			res.render('modificar', { usuarios: productos })
+
+		} catch (error) {
+			res.render(error)
+		}
 	},
 	// Update - Form to edit
-	edit: (req, res) => {
-		products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
-		const id_producto = req.params.id;
-		var elemento2;
-		products.forEach(function buscar_posicion_desdeid(elemento) {
-			if (elemento.id == id_producto) {
-				elemento2 = elemento;
-			}
-		})
-		res.render('editar', { id_producto, 'productToEdit': elemento2, title: elemento2.name })
+	edit: async function (req, res) {
+		try {
+
+			const id_producto = req.params.id;
+			let edited = await db.Product.findByPk(id_producto);
+			res.render('editar', { id_producto, 'productToEdit': edited, title: edited.teamName })
+		} catch (error) {
+			res.send(error)
+		}
+
+
+
 	},
 	// Update - Method to update
-	update: (req, res) => {
+	update: async function (req, res) {
 
-		//leer JSON y guardarlo en un array
-		products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
-		//leer el id del producto desde el request
-		const id_producto = Number(req.params.id);
-		//filter donde se devuelven todos los elemetos del array MENOS el pedido por request
-		let nuevoProductos = products.filter(valor => valor.id != id_producto)
-		if (req.file) {
-			//agregar el nuevo item modificado al array sin el
-			let itemEditado = { id: id_producto, ...req.body, imagen: req.file.filename }
-			nuevoProductos.push(itemEditado)
-			//escribiendo el nuevo array en el archivo
-			fs.writeFileSync(productsFilePath, JSON.stringify(nuevoProductos))
 
-			//volver a leer el nuevo archivo
-			products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
-			//devolver todo el objeto con el id que quiere el usuario, no se si esto está bien, solo lo hice para evitar un for 
-			var elemento2;
-			products.forEach(function buscar_posicion_desdeid(elemento) {
-				if (elemento.id == id_producto) {
-					elemento2 = elemento;
+		try {
+
+			
+
+
+
+
+
+
+			let errors = validationResult(req);
+			if (errors.isEmpty()) {
+				console.log(errors)
+				let id_producto = req.params.id;
+				console.log(id_producto)
+				console.log(req.body)
+				let updated = await db.Product.update(
+					{
+						teamName: req.body.teamName,
+						size: req.body.size,
+						jugador: req.body.jugador,
+						imagen: req.file.filename,
+						price: req.body.price,
+						grupo: req.body.grupo
+
+					},
+					{
+						where: {
+							id: id_producto
+						}
+
+					}
+
+				)
+
+
+				res.redirect('/product')
+
+			}
+			else{
+
+				
+				let old= {
+					id: req.params.id,
+					teamName: req.body.teamName,
+					size: req.body.size,
+					jugador: req.body.jugador,
+					price: req.body.price,
+					grupo: req.body.grupo
 				}
-			})
-			console.log(req.file.filename)
-			res.render('product', { id_producto, producto: elemento2, title: elemento2.name })
+				
+				
+				res.render('editar', { errors: errors.array(), 'productToEdit': old })
+			}
+
+
+		} catch (error) {
+			res.send(error)
 		}
-		else {
-			var elemento2;
-			products.forEach(function buscar_posicion_desdeid(elemento) {
-				if (elemento.id == id_producto) {
-					elemento2 = elemento;
-				}
-			})
-			res.render('editar', { id_producto, 'productToEdit': elemento2, title: elemento2.name })
-		}
+
 
 	},
 
 	// Delete - Delete one product from DB
-	destroy: (req, res) => {
-		products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
-		//leer el id del producto desde el request
-		const id_producto = (req.params.id);
-		//filter donde se devuelven todos los elemetos del array MENOS el pedido por request
-		let nuevoProductos = products.filter(valor => valor.id != id_producto)
-		fs.writeFileSync(productsFilePath, JSON.stringify(nuevoProductos));
-		products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
-		res.redirect('/product/edit')
+	destroy: async function(req, res)  {
+
+
+		try {
+			let id_producto=req.params.id;
+			let deleted= await db.Product.destroy(
+				{
+					where: {id: id_producto
+					
+					},  force: true
+				}
+			)
+			res.redirect('/product/edit')
+
+		} catch (error) {
+			res.send(error)
+		}
+		
+		
+		
+		
 
 	}
 };

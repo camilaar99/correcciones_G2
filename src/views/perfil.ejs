@@ -20,7 +20,7 @@
                     <h2>Apellido: <%= usuario.lastName %> </h2>
                     <h2>Email: <%= usuario.email %> </h2>
                     <h2>Rol: <%= usuario.type %> </h2>
-                    <h2><a href=<%= usuario.type=="Admin"? "/users/admin": "/users/profile"  %>>Ingresa</a></h2>
+                    <h2><a href=<%= usuario.type=="Admin"? "/users/admin": "/users/profile"  %>><%= usuario.type=="Admin"? "Ingresa": "" %> </a></h2>
                     <img src="/img/users/<%= usuario.avatar %> " alt="" class="foto-prod">
                     <a href="/users/logout" class="action-button edit">Cerrar sesión</a>
                 </div>

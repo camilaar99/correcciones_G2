@@ -13,10 +13,17 @@ const mainController = {
     // },
 
     mainView: function (req, res) {
-        db.Product.findAll().then(function (result) {
-            res.render('shop', { products: result })
-            //res.send(result)
-        })
+
+        try {
+            db.Product.findAll().then(function (result) {
+                res.render('shop', { products: result })
+                //res.send(result)
+            })
+            
+        } catch (error) {
+            res.send(error)
+        }
+        
     }
 }
 

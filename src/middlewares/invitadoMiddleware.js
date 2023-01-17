@@ -9,13 +9,15 @@ function invitadoMiddleware(req, res, next) {
         res.locals.usuario=req.session.usuarioLogueado;
         res.locals.invitado=true;
         console.log("puse los locals usuario")
-        next();
-        
-        
+        next()
+   
     }
 
-    console.log("fajnjdhfia")
-    next();
+  
+    else {
+        
+        next()
+    }
 
 
 

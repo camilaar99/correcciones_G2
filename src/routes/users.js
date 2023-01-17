@@ -72,6 +72,38 @@ const validarCrear=[
         })
 ]
 
+
+const validarEditar=[
+    body('email')
+        .notEmpty().withMessage('El campo email no puede estar vacío').bail()
+        .isEmail().withMessage('Debes ingresar un email válido').bail()
+        ,
+    body('firstName')
+        .notEmpty().withMessage('El campo nombre no puede estar vacío'),
+    
+        body('avatar').custom((value, {req})=>{
+            let file = req.file;
+            let acceptedExtension= ['.jpg', '.png', '.gif', '.jpeg'];
+            
+            
+            if (file){
+                let fileExtension=path.extname(file.originalname)
+                if (acceptedExtension.includes(fileExtension)){
+                    return true;
+                }
+                else{
+                    throw new Error ('Extensión de archivo no permitida');
+                }
+                
+            }
+            else{
+                throw new Error ('Tienes que subir una imagen');
+            }
+            
+        })
+]
+
+
 const validarLogin = [
     body('email')
         .notEmpty().withMessage('El campo email no puede estar vacío').bail()
@@ -99,7 +131,7 @@ router.get('/prueba', (req,res)=>{
 		
         })
 });
-router.get('/', (req,res)=>{res.send("Estas autenticado")})
+//router.get('/', (req,res)=>{res.send("Estas autenticado")})
 router.get('/register', userController.register);
 router.post('/log',upload.single('avatar'), validarCrear, userController.saveRegister);
 
@@ -109,22 +141,15 @@ router.post('/', validarLogin, userController.saveLogin);
 
 
 router.get('/admin', adminMiddleware, userController.paginaAdmin);
-router.get('/admin/listar',async (req,res)=>{
-    const users= await db.User.findAll()
-
-    res.render('listaUsuarios',{
-        usuarios: users
-    })
-
-}); 
+router.get('/admin/listar', userController.listarUsuarios); 
 
 
 
 
 
 
-router.get('/edit/:id',userController.editarVista);
-//router.put('/admin/listar', adminMiddleware,upload.single('avatar'),userController.saveEdit);
+router.get('/edit/:id', adminMiddleware, userController.editarVista);
+router.put('/updated/:id',upload.single('avatar'), validarEditar, userController.saveEdit);
 
 router.delete('/:id/delete', adminMiddleware, userController.deleteUser)
 
