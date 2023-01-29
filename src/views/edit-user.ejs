@@ -12,9 +12,16 @@
           <div class="contenedor-contenido-2">
                          
 
+            <% if (locals.errors) {%>
+              <% errors.forEach(error=> { %>
+                  <p>
+                      <%= error.msg %>
+                  </p>
+                  <% })} %>
+                  
             <h1>Editar usuario</h1>
             <p>Usuario a modificar</p>
-            <form action="/users/admin/listar?_method=PUT" method="POST" class="login" enctype="multipart/form-data" >
+            <form action="/users/updated/<%= old.id %> ?_method=PUT" method="POST" class="login" enctype="multipart/form-data" >
               <input type="text" id="firstName" name="firstName" placeholder="NOMBRE" value=" <%=old.firstName%>"/>
               <input type="text" id="lastName" name="lastName" placeholder="APELLIDO"   value=" <%=old.lastName%>"/>
               <input type="email" id="email" name="email" placeholder="EMAIL" value=" <%=old.email%>"/>
