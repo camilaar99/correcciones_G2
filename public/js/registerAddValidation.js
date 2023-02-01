@@ -2,9 +2,20 @@
 
 window.onload = function(){
 
-    let form = document.querySelector('.form');
-    form.title.focus()
+    let form = document.querySelector('.login');
+    let firstName = document.querySelector('#firstName')
+    let lastName = document.querySelector('#lastName')
+    let email = document.querySelector('#email')
+    let contraseña = document.querySelector('#contraseña')
+    let contraseña2 = document.querySelector('#contraseña2')
+    let type = document.querySelector('#type')
+    let avatar = document.querySelector('#avatar')
+    
+
     form.addEventListener('submit', async (e) => {
+
+        //alert('absdfasf')
+        console.log("hola")
         e.preventDefault()
         let errores = []
 
@@ -17,7 +28,7 @@ window.onload = function(){
         let avatar = document.querySelector('#avatar')
 
         if (firstName.value == ""){
-            errores.push("El campo no puede estar vacío")
+            errores.push("El campo nombre no puede estar vacío")
             firstName.classList.add('is-invalid')
             firstName.classList.remove('is-valid')
         }
@@ -27,7 +38,7 @@ window.onload = function(){
         }
 
         if (lastName.value == ""){
-            errores.push("El campo no puede estar vacío")
+            errores.push("El campo apellido no puede estar vacío")
             lastName.classList.add('is-invalid')
             lastName.classList.remove('is-valid')
         }
@@ -45,7 +56,7 @@ window.onload = function(){
             email.classList.remove('is-invalid')
         }
         if (contraseña.value == ""){
-            errores.push("El campo no puede estar vacío")
+            errores.push("El campo contraseña no puede estar vacío")
             contraseña.classList.add('is-invalid')
             contraseña.classList.remove('is-valid')
         }
@@ -54,7 +65,7 @@ window.onload = function(){
             contraseña.classList.remove('is-invalid')
         }
         if (contraseña2.value == ""){
-            errores.push("El campo no puede estar vacío")
+            errores.push("El campo repetir contraseña no puede estar vacío")
             contraseña2.classList.add('is-invalid')
             contraseña2.classList.remove('is-valid')
         }
@@ -63,9 +74,10 @@ window.onload = function(){
             contraseña2.classList.remove('is-invalid')
         }
         if (type.value == ""){
-            errores.push("Debe seleccionar una opción")
+            errores.push("Debe seleccionar un tipo de usuario")
             type.classList.add('is-invalid')
             type.classList.remove('is-valid')
+            console.log(errores)
         }
         else {
             type.classList.add("is-valid")
@@ -75,11 +87,15 @@ window.onload = function(){
             errores.push("Debe subir un archivo")
             avatar.classList.add('is-invalid')
             avatar.classList.remove('is-valid')
+            console.log(errores)
         }
         else {
             avatar.classList.add("is-valid")
             avatar.classList.remove('is-invalid')
+            console.log(errores)
         }
+
+        
 
         if (errores.length > 0) {
             let ulErrores = document.querySelector('.errores')
@@ -104,21 +120,17 @@ window.onload = function(){
                 type: type.value,
                 avatar: avatar.value
             }
-            const respuesta = await fetchCreate(body)
-            if (respuesta.meta.status == 200) {
-                Swal.fire(
-                    'Muy bien!',
-                    'Usuario Registrado!',
-                    'success'
-                )
-            }
-            else {
-                Swal.fire(
-                    'Cuidado!',
-                    'Hubo un error al ingresar los datos',
-                    'error'
-                )
-            }     
+           
+
+            Swal.fire(
+                'Muy bien!',
+                'Usuario ingresado!',
+                'success'
+            )
+            
+            form.submit()
+            
+            
         }
         
 })

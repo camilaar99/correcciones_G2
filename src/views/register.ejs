@@ -10,10 +10,15 @@
       <main>
         <section class="contenido-2">
           <div class="contenedor-contenido-2">
+
+            <ul class="errores"></ul>
+
+
             <% if (locals.errores) { %>
               <% errores.forEach( error => { %>  
-                <p style="color:#FF0000"><%= error.msg %></p>
+                <p class="errores" style="color:#FF0000"><%= error.msg %></p>
                 <% })} %> 
+
 
                 
 
@@ -46,7 +51,7 @@
               <label for="avatar">Foto de perfil</label>
               <input type="file" id="avatar" name="avatar"> 
               <a href="/users/log" class="ir-a">¿Ya tienes cuenta? Inicia sesión</a>
-              <div class="boton_ingresar"><button>Ingresar</button></div>
+              <div class="boton_ingresar"><button type="submit">Ingresar</button></div>
             </form>
           </div>
         </section>

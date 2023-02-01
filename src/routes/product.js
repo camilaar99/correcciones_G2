@@ -24,13 +24,35 @@ const upload = multer({ storage: storage })
 
 const validarCrearProducto = [
     body('teamName')
-        .notEmpty().withMessage('El campo nombre no puede estar vacío').bail(),
+        .notEmpty().withMessage('El campo nombre no puede estar vacío').bail()
+        .isLength({min:5 }).withMessage('El campo nombre debe tener mas de 5 caracteres'),
     body('descripcion')
-        .notEmpty().withMessage('El campo descripcion no puede estar vacío'),
+        .notEmpty().withMessage('El campo descripcion no puede estar vacío').bail()
+        .isLength({min:20 }).withMessage('El campo descripción debe tener mas de 20 caracteres'),
     body('grupo')
         .notEmpty().withMessage('Debe elegir un grupo'),
     body('size').notEmpty().withMessage('Debe elegir un talle'),
-    body('jugador').notEmpty().withMessage('El campo jugador no puede estar vacío')
+    body('jugador').notEmpty().withMessage('El campo jugador no puede estar vacío'),
+    body('imagen').custom((value, {req})=>{
+        let file = req.file;
+        let acceptedExtension= ['.jpg', '.png', '.gif', '.jpeg'];
+        
+        
+        if (file){
+            let fileExtension=path.extname(file.originalname)
+            if (acceptedExtension.includes(fileExtension)){
+                return true;
+            }
+            else{
+                throw new Error ('Extensión de archivo no permitida');
+            }
+            
+        }
+        else{
+            throw new Error ('Tienes que subir una imagen');
+        }
+        
+    })
 ]
 
 

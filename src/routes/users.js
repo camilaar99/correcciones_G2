@@ -35,21 +35,42 @@ const validarCrear=[
     body('email')
         .notEmpty().withMessage('El campo email no puede estar vacío').bail()
         .isEmail().withMessage('Debes ingresar un email válido').bail()
-        // .custom((value, {req})=>{
-        //     let userInDB=userModel.findByField('email',req.body.email);
-        //     if (userInDB){
-        //         throw new Error ('Usuario ya registrado, inicie sesión');
-        //     }
-        //     else {
-        //         return true;
-        //     }
-        // })
+        .custom((value, {req})=>{
+            
+                return db.User.findAll({
+                    where:{ email: req.body.email}
+                }).then(userInDB=>{
+                    if (userInDB){
+
+                        
+                        //return Promise.reject('E-mail already in use');
+                        //locals.errores.push('Usuario ya registrado, inicie sesión')
+                        throw new Error ('Usuario ya registrado, inicie sesión');
+                    }
+                    else {
+                        return true;
+                    }
+
+                }).catch((e)=>{
+                    throw new Error ('Usuario ya registrado, inicie sesión')
+                    console.log(e)
+                })
+                
+
+                
+            
+             
+         })
         ,
     body('firstName')
-        .notEmpty().withMessage('El campo nombre no puede estar vacío'),
+        .notEmpty().withMessage('El campo nombre no puede estar vacío').bail()
+        .isLength({min: 2}).withMessage('El campo nombre debe tener al menos dos caracteres'),
+    body('lastName')
+        .notEmpty().withMessage('El campo apellido no puede estar vacío').bail()
+        .isLength({min: 2}).withMessage('El campo apellido debe tener al menos dos caracteres'),
     body('password')
         .notEmpty().withMessage('El campo password no puede estar vacío').bail()
-        .isLength({min:3}).withMessage('La contraseña debe tener mas de 3 caracteres'),
+        .isLength({min:8}).withMessage('La contraseña debe tener mas de 3 caracteres'),
         body('avatar').custom((value, {req})=>{
             let file = req.file;
             let acceptedExtension= ['.jpg', '.png', '.gif', '.jpeg'];
@@ -121,6 +142,7 @@ const validarLogin = [
 const userController = require('../controllers/userController');
 const authMiddleware = require('../middlewares/authMiddleware');
 const adminMiddleware=require('../middlewares/adminMiddleware');
+const { localsName } = require('ejs');
 //const { route } = require('.');
 
 /*** GET ALL PRODUCTS ***/

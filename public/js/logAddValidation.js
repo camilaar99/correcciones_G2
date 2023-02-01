@@ -2,8 +2,8 @@
 
 window.onload = function(){
 
-    let form = document.querySelector('.form');
-    form.title.focus()
+    let form = document.querySelector('.login');
+
     form.addEventListener('submit', async (e) => {
         e.preventDefault()
         let errores = []
@@ -12,7 +12,7 @@ window.onload = function(){
         let contraseña = document.querySelector('#contraseña')
 
         if (email.value == ""){
-            errores.push("El campo no puede estar vacío")
+            errores.push("El campo email no puede estar vacío")
             email.classList.add('is-invalid')
             email.classList.remove('is-valid')
         }
@@ -22,7 +22,7 @@ window.onload = function(){
         }
 
         if (contraseña.value == ""){
-            errores.push("El campo no puede estar vacío")
+            errores.push("El campo contraseña no puede estar vacío")
             contraseña.classList.add('is-invalid')
             contraseña.classList.remove('is-valid')
         }
@@ -33,6 +33,7 @@ window.onload = function(){
         
 
         if (errores.length > 0) {
+            console.log(errores)
             let ulErrores = document.querySelector('.errores')
             ulErrores.classList.add("alert-warning")
             ulErrores.innerHTML = ""
@@ -47,26 +48,21 @@ window.onload = function(){
         }
         else {
 
+            console.log(errores)
             let body = {
                 email: email.value,
                 contraseña: contraseña.value,
             }
-            const respuesta = await fetchCreate(body)
-            if (respuesta.meta.status == 200) {
-                Swal.fire(
-                    'Muy bien!',
-                    'Usuario ingresado!',
-                    'success'
-                )
+
+            Swal.fire(
+                'Muy bien!',
+                'Usuario ingresado!',
+                'success'
+            )
+            
+            form.submit()
+            
             }
-            else {
-                Swal.fire(
-                    'Cuidado!',
-                    'Hubo un error al ingresar los datos',
-                    'error'
-                )
-            }     
-        }
         
 })
 }
