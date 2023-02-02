@@ -27,8 +27,8 @@ window.onload = function(){
         let type = document.querySelector('#type')
         let avatar = document.querySelector('#avatar')
 
-        if (firstName.value == ""){
-            errores.push("El campo nombre no puede estar vacío")
+        if (firstName.value < 2){
+            errores.push("El campo nombre no puede estar vacío y debe tener más de 2 caracteres")
             firstName.classList.add('is-invalid')
             firstName.classList.remove('is-valid')
         }
@@ -37,8 +37,8 @@ window.onload = function(){
             firstName.classList.remove('is-invalid')
         }
 
-        if (lastName.value == ""){
-            errores.push("El campo apellido no puede estar vacío")
+        if (lastName.value < 2){
+            errores.push("El campo apellido no puede estar vacío y debe tener más de 2 caractereso")
             lastName.classList.add('is-invalid')
             lastName.classList.remove('is-valid')
         }
