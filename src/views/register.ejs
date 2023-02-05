@@ -32,7 +32,7 @@
               <input type="text" id="firstName" name="firstName" placeholder="NOMBRE" value="<%= locals.old && old.firstName ? old.firstName: null %>">
                 <input type="text" id="lastName" name="lastName" placeholder="APELLIDO" value="<%= locals.old && old.lastName ? old.lastName: null %>">
               
-              <input type="email" id="email" name="email" placeholder="EMAIL" value=" <% if (locals.old) {%>
+              <input type="text" id="email" name="email" placeholder="EMAIL" value=" <% if (locals.old) {%>
                 <%= old.email  %>  
                 <% } %> "/>
               <input type="email" id="email2" name="email2" placeholder="REPETIR EMAIL" value=" <% if (locals.old) {%>

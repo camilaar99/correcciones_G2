@@ -64,7 +64,7 @@ router.get('/', productsController.productView)
 
 /*** CREATE ONE PRODUCT ***/
 router.get('/crear', adminMiddleware, productsController.create);
-router.post('/', upload.single('imagen'), validarCrearProducto, productsController.store);
+router.post('/', upload.single('imagen'),validarCrearProducto, productsController.store);
 
 
 // /*** EDIT ONE PRODUCT ***/ 

@@ -27,11 +27,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 
 const validarCrear=[
-    // body('firstName').notEmpty().withMessage('El campo nombre no puede estar vacío'),
-    // body('lastName').notEmpty().withMessage('El campo apellido no puede estar vacío'),
-    // body('password').notEmpty().withMessage('El campo contraseña no puede estar vacío'),
-   
-    // body('email').isEmail().withMessage('Campo email no válido')
     body('email')
         .notEmpty().withMessage('El campo email no puede estar vacío').bail()
         .isEmail().withMessage('Debes ingresar un email válido').bail()
@@ -42,9 +37,6 @@ const validarCrear=[
                 }).then(userInDB=>{
                     if (userInDB){
 
-                        
-                        //return Promise.reject('E-mail already in use');
-                        //locals.errores.push('Usuario ya registrado, inicie sesión')
                         throw new Error ('Usuario ya registrado, inicie sesión');
                     }
                     else {
@@ -179,22 +171,6 @@ router.get('/profile',authMiddleware, userController.perfilUsuario);
 
 
 router.get('/logout', userController.logout)
-//router.get('/solousuarios',authMiddleware, (req,res)=>{ res.send('Hola '+ req.session.usuarioLogueado.email)});
-// /*** CREATE ONE PRODUCT ***/ 
-//router.get('/create/', productsController.create); 
-// router.post('/', logDBMiddleware, upload.single('image'), validarCrear,productsController.store); 
-
-
-// /*** GET ONE PRODUCT ***/ 
-// router.get('/:id/', productsController.detail); 
-
-// /*** EDIT ONE PRODUCT ***/ 
-// router.get('/edit/:id', productsController.edit); 
-// router.put('/:id',logDBMiddleware, upload.single('image'), productsController.update); 
-
-
-// /*** DELETE ONE PRODUCT***/ 
-// router.delete('/:id/delete', productsController.destroy); 
 
 
 module.exports = router;

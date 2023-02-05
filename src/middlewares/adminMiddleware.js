@@ -8,6 +8,7 @@ function adminMiddleware(req, res, next){
         }
     }
     else{
+        let home='./'
         res.send('logueate primero')
     }
 }
