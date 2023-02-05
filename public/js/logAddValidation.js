@@ -1,4 +1,4 @@
-// VALIDACIONES DEL FORMULARIO //
+// VALIDACIONES DEL FORMULARIO // log add
 
 window.onload = function(){
 
@@ -11,8 +11,31 @@ window.onload = function(){
         let email = document.querySelector('#email')
         let contraseña = document.querySelector('#contraseña')
 
+        function ValidateEmail(mail) {
+            var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+            if (mail.value.match(validRegex)) {
+                return true
+            }
+            else{
+                return false
+            }
+        }
+
+
+        let validMail=ValidateEmail(email);
+
         if (email.value == ""){
             errores.push("El campo email no puede estar vacío")
+            email.classList.add('is-invalid')
+            email.classList.remove('is-valid')
+        }
+        else {
+            email.classList.add("is-valid")
+            email.classList.remove('is-invalid')
+        }
+
+        if (validMail==false){
+            errores.push("El campo email es inválido")
             email.classList.add('is-invalid')
             email.classList.remove('is-valid')
         }
@@ -30,6 +53,7 @@ window.onload = function(){
             contraseña.classList.add("is-valid")
             contraseña.classList.remove('is-invalid')
         }
+
         
 
         if (errores.length > 0) {
@@ -58,12 +82,13 @@ window.onload = function(){
                 'Muy bien!',
                 'Usuario ingresado!',
                 'success'
-            )
-            
-            form.submit()
+            ).then((result)=>{
+                if (result.isConfirmed){
+                    form.submit()
+                }
+            })
             
             }
         
 })
 }
-

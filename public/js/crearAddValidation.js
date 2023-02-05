@@ -1,8 +1,8 @@
-// VALIDACIONES DEL FORMULARIO //
+// VALIDACIONES DEL FORMULARIO // crearvalidation
 
 window.onload = function(){
 
-    let form = document.querySelector('.contenedor-crear');
+    let form = document.querySelector('.login');
     let teamName = document.querySelector('#teamName')
     let descripcion = document.querySelector('#descripcion')
     let imagen = document.querySelector('#imagen')
@@ -25,7 +25,7 @@ window.onload = function(){
         let grupo = document.querySelector('#grupo')
 
         if (teamName.value == ''){
-            errores.push("El campo no puede estar vacío")
+            errores.push("El campo nombre equipo no puede estar vacío")
             teamName.classList.add('is-invalid')
             teamName.classList.remove('is-valid')
         }
@@ -35,7 +35,7 @@ window.onload = function(){
         }
 
         if (descripcion.value == ''){
-            errores.push("El campo no puede estar vacío")
+            errores.push("El campo descripcion no puede estar vacío")
             descripcion.classList.add('is-invalid')
             descripcion.classList.remove('is-valid')
         }
@@ -53,7 +53,7 @@ window.onload = function(){
             imagen.classList.remove('is-invalid')
         }
         if (jugador.value == ""){
-            errores.push("El campo no puede estar vacío")
+            errores.push("El campo jugador no puede estar vacío")
             jugador.classList.add('is-invalid')
             jugador.classList.remove('is-valid')
         }
@@ -62,7 +62,7 @@ window.onload = function(){
             jugador.classList.remove('is-invalid')
         }
         if (price.value == ""){
-            errores.push("El campo no puede estar vacío")
+            errores.push("El campo precio no puede estar vacío")
             price.classList.add('is-invalid')
             price.classList.remove('is-valid')
             console.log(errores)
@@ -72,7 +72,7 @@ window.onload = function(){
             price.classList.remove('is-invalid')
         }
         if (grupo.value == ""){
-            errores.push("Debe subir un archivo")
+            errores.push("Debe elegir un grupo")
             grupo.classList.add('is-invalid')
             grupo.classList.remove('is-valid')
             console.log(errores)
@@ -108,15 +108,21 @@ window.onload = function(){
                 price: price.value,
                 grupo: grupo.value
             }
-           
+            
 
             Swal.fire(
                 'Muy bien!',
                 'Producto ingresado!',
                 'success'
-            )
+            ).then((result)=>{
+                if (result.isConfirmed){
+                    form.submit()
+                }
+            })
             
-            form.submit()
+            
+            //form.submit()
+            
             
             
         }

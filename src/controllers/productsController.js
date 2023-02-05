@@ -2,29 +2,21 @@ const fs = require('fs');
 const path = require('path');
 const { validationResult } = require('express-validator');
 
-const productsFilePath = path.join(__dirname, '../data/products.json');
-let products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
-
-const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
 let db = require('../database/models');
 let sequelize = db.sequelize
 
 const controller = {
-	archivo: productsFilePath,
-
 
 	productView2: function (req, res) {
 		db.Product.findAll().then(function (result) {
 			res.send(result)
-			// 	//res.render(result)
 		})
 	},
 
 	productView: function (req, res, next) {
 		db.Product.findAll().then(function (result) {
 			res.render('shop', { products: result })
-			//res.send(result)
 		})
 	},
 
@@ -37,32 +29,10 @@ const controller = {
 			res.render('product', { product: result })
 		})
 	},
-
-	// // Root - Show all products
-	// // index: (req, res) => {
-	// // 	products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
-	// // 	res.render('products', { products })
-	// // 	// Do the magic
-	// // },
-
-	// // // Detail - Detail from one product
-	// // detail: (req, res) => {
-	// // 	// Do the magic
-	// // 	products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
-	// // 	const id_producto = req.params.id;
-	// // 	var elemento2;
-	// // 	products.forEach(function buscar_posicion_desdeid(elemento) {
-	// // 		if (elemento.id == id_producto) {
-	// // 			elemento2 = elemento;
-	// // 		}
-	// // 	})
-	// // 	res.render('detail', { id_producto, 'producto_mostrar': elemento2, title: elemento2.name })
-	// // },
-
 	// Create - Form to create
 	create: (req, res) => {
 		res.render('crear');
-		// 	// Do the magic
+
 	},
 	// Create -  Method to store
 	store: async function (req, res) {
@@ -129,13 +99,6 @@ const controller = {
 
 
 		try {
-
-			
-
-
-
-
-
 
 			let errors = validationResult(req);
 			if (errors.isEmpty()) {

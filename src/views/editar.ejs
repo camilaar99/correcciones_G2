@@ -22,6 +22,8 @@
 
 
         <h2 class="products-title">Estás editando: <i><%=productToEdit.teamName%></i></h2>
+
+        <ul class="errores"></ul>
         <% if (locals.errors) {%>
             <% errors.forEach(error=> { %>
                 <p>
@@ -58,10 +60,11 @@
                  <div class="division">
                      <label for="size">Talle camiseta:</label>
                      <select name="size" id="size">
-                         <option value="<%=productToEdit.size%>"></option>
-                         <option value="Small">Small</option>
-                         <option value="Medium">Medium</option>
-                         <option value="Large">Large</option>
+                        <option value="" >Elegí talle</option>
+                         <option value="Small" <%=productToEdit.size=="Small" ? "selected" : ""%>>Small</option>
+                         <option value="Medium" <%=productToEdit.size=="Medium" ? "selected" : ""%>>Medium</option>
+                         <option value="Large" <%=productToEdit.size=="Large" ? "selected" : ""%>>Large</option>
+                         
                      </select>
                  </div>
 
@@ -80,14 +83,14 @@
                     <label for="grupo">Seleccionar grupo:</label>
                     <select name="grupo" id="grupo">
                         <option value="" >Elegí</option>
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                        <option value="D">D</option>
-                        <option value="E">E</option>
-                        <option value="F">F</option>
-                        <option value="G">G</option>
-                        <option value="H">H</option>
+                        <option value="A" <%=productToEdit.grupo=="A" ? "selected" : ""%>>A</option>
+                        <option value="B" <%=productToEdit.grupo=="B" ? "selected" : ""%>>B</option>
+                        <option value="C" <%=productToEdit.grupo=="C" ? "selected" : ""%>>C</option>
+                        <option value="D" <%=productToEdit.grupo=="D" ? "selected" : ""%>>D</option>
+                        <option value="E" <%=productToEdit.grupo=="E" ? "selected" : ""%>>E</option>
+                        <option value="F" <%=productToEdit.grupo=="F" ? "selected" : ""%>>F</option>
+                        <option value="G" <%=productToEdit.grupo=="G" ? "selected" : ""%>>G</option>
+                        <option value="H" <%=productToEdit.grupo=="H" ? "selected" : ""%>>H</option>
                         
                     </select>
                 </div>
