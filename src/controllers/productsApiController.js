@@ -19,6 +19,7 @@ module.exports =  {
                  jugador: product.jugador,
                  price: product.price,
                  grupo: product.grupo_id,
+                 imagen: `http://localhost:8000/img/${product.imagen}`,
                  detail: `/api/products/${product.id}`
             }
             return productDetail
@@ -32,7 +33,7 @@ module.exports =  {
         let response = {
             id: product.id,
             teamName: product.teamName, 
-            imagen: `http://localhost:3030${product.imagen}`,
+            imagen: `http://localhost:8000/img/${product.imagen}`,
             size: product.size,
             jugador: product.jugador,
             asociations: [product.grupo_equipo],

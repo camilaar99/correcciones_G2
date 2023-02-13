@@ -28,7 +28,8 @@ module.exports =  {
             firstName: user.firstName,
             lastName: user.lastName,
             email: user.email,
-            type: user.type
+            type: user.type,
+            image: `http://localhost:8000/img/users/${user.avatar}`, 
         }
         return res.json(response)
     }
