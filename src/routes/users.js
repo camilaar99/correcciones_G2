@@ -29,31 +29,7 @@ const upload = multer({ storage: storage })
 const validarCrear=[
     body('email')
         .notEmpty().withMessage('El campo email no puede estar vacío').bail()
-        .isEmail().withMessage('Debes ingresar un email válido').bail()
-        .custom((value, {req})=>{
-            
-                return db.User.findAll({
-                    where:{ email: req.body.email}
-                }).then(userInDB=>{
-                    if (userInDB){
-
-                        throw new Error ('Usuario ya registrado, inicie sesión');
-                    }
-                    else {
-                        return true;
-                    }
-
-                }).catch((e)=>{
-                    throw new Error ('Usuario ya registrado, inicie sesión')
-                    console.log(e)
-                })
-                
-
-                
-            
-             
-         })
-        ,
+        .isEmail().withMessage('Debes ingresar un email válido'),
     body('firstName')
         .notEmpty().withMessage('El campo nombre no puede estar vacío').bail()
         .isLength({min: 2}).withMessage('El campo nombre debe tener al menos dos caracteres'),

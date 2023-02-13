@@ -19,6 +19,8 @@ const aboutRouter=require('./routes/about');
 const contactRouter=require('./routes/contact');
 const cartRouter=require('./routes/cart');
 const usersRouter=require('./routes/users');
+const apiUserRouter=require('./routes/usersApiRoute');
+const apiProductRouter=require('./routes/productsApiRoute');
 
 
 
@@ -62,6 +64,7 @@ app.use('/contact',contactRouter);
 app.use('/cart',cartRouter);
 
 app.use('/users', usersRouter);
-
+app.use('/api/users',apiUserRouter);
+app.use('/api/products',apiProductRouter);
 
 app.listen(port, ()=>console.log(`Servidor corriendo en puerto ${port}`))

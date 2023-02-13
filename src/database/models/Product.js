@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    grupo: {
+    grupo_id: {
         type: DataTypes.STRING,
         allowNull: false
     }
@@ -39,5 +39,14 @@ module.exports = (sequelize, DataTypes) => {
         
     }
     const Product = sequelize.define(alias, cols, config);
+
+    Product.associate= function(models){
+        Product.belongsTo(models.Grupo, {
+            as: "grupo_equipo",
+            foreignKey: "grupo_id"
+        })
+    }
+
+
     return Product
 }

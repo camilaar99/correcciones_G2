@@ -76,7 +76,7 @@
         
         <div class="group-products">
           <% for (product of locals.products) {%> 
-            <% if (product.grupo =="A") {%> 
+            <% if (product.grupo_id ==1) {%> 
           <article class="product">
             <div class="img-box">
               <a href="/product/<%= product.id %> "><img class="product-img" src="/img/<%= product.imagen %>" /></a>
@@ -98,7 +98,7 @@
         <div class="group-y">GRUPO B</div>
         <div class="group-products">
           <% for (product of locals.products) {%> 
-            <% if (product.grupo =="B") {%> 
+            <% if (product.grupo_id ==2) {%> 
               <article class="product">
                 <div class="img-box">
                   <a href="/product/<%= product.id %> "><img class="product-img" src="/img/<%= product.imagen %>" /></a>
@@ -121,7 +121,7 @@
         <div class="group-x">GRUPO C</div>
         <div class="group-products">
           <% for (product of locals.products) {%> 
-            <% if (product.grupo =="C") {%> 
+            <% if (product.grupo_id ==3) {%> 
               <article class="product">
                 <div class="img-box">
                   <a href="/product/<%= product.id %> "><img class="product-img" src="/img/<%= product.imagen %>" /></a>
@@ -143,7 +143,7 @@
         <div class="group-y">GRUPO D</div>
         <div class="group-products">
           <% for (product of locals.products) {%> 
-            <% if (product.grupo =="D") {%> 
+            <% if (product.grupo_id ==4) {%> 
               <article class="product">
                 <div class="img-box">
                   <a href="/product/<%= product.id %> "><img class="product-img" src="/img/<%= product.imagen %>" /></a>
@@ -165,7 +165,7 @@
         <div class="group-x">GRUPO E</div>
         <div class="group-products">
           <% for (product of locals.products) {%> 
-            <% if (product.grupo =="E") {%> 
+            <% if (product.grupo_id ==5) {%> 
               <article class="product">
                 <div class="img-box">
                   <a href="/product/<%= product.id %> "><img class="product-img" src="/img/<%= product.imagen %>" /></a>
@@ -187,7 +187,7 @@
         <div class="group-y">GRUPO F</div>
         <div class="group-products">
           <% for (product of locals.products) {%> 
-            <% if (product.grupo =="F") {%> 
+            <% if (product.grupo_id ==6) {%> 
               <article class="product">
                 <div class="img-box">
                   <a href="/product/<%= product.id %> "><img class="product-img" src="/img/<%= product.imagen %>" /></a>
@@ -209,7 +209,7 @@
         <div class="group-x">GRUPO G</div>
         <div class="group-products">
           <% for (product of locals.products) {%> 
-            <% if (product.grupo =="G") {%> 
+            <% if (product.grupo_id ==7) {%> 
               <article class="product">
                 <div class="img-box">
                   <a href="/product/<%= product.id %> "><img class="product-img" src="/img/<%= product.imagen %>" /></a>
@@ -231,7 +231,7 @@
         <div class="group-y">GRUPO H</div>
         <div class="group-products">
           <% for (product of locals.products) {%> 
-            <% if (product.grupo =="H") {%> 
+            <% if (product.grupo_id ==8) {%> 
               <article class="product">
                 <div class="img-box">
                   <a href="/product/<%= product.id %> "><img class="product-img" src="/img/<%= product.imagen %>" /></a>
