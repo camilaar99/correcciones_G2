@@ -8,6 +8,7 @@ module.exports =  {
         }
         let users = await db.User.findAll()
         response.total = users.length
+        response.count = users.length
 
         response.users = users.map(user => {
              let userDetail = {
