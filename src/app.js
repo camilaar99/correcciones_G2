@@ -1,26 +1,26 @@
 const express = require('express');
-const path = require('path')
+const path = require('path');
 const app = express();
-const publicPath = path.resolve(__dirname, '../public')
-const port = process.env.PORT || 8000
-const methodOverride =  require('method-override');
-var createError = require('http-errors');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-const session=require('express-session');
+const publicPath = path.resolve(__dirname, '../public');
+const port = process.env.PORT || 8000;
+const methodOverride = require('method-override');
+const createError = require('http-errors');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const session = require('express-session');
 
-const recordameMiddleware=require('./middlewares/recordameMiddleware');
-const invitadoMiddleware=require('./middlewares/invitadoMiddleware');
+const recordameMiddleware = require('./middlewares/recordameMiddleware');
+const invitadoMiddleware = require('./middlewares/invitadoMiddleware');
 
-const mainRouter=require('./routes/main');
-const productRouter=require('./routes/product');
-const shopRouter=require('./routes/shop');
-const aboutRouter=require('./routes/about');
-const contactRouter=require('./routes/contact');
-const cartRouter=require('./routes/cart');
-const usersRouter=require('./routes/users');
-const apiUserRouter=require('./routes/usersApiRoute');
-const apiProductRouter=require('./routes/productsApiRoute');
+const mainRouter = require('./routes/main');
+const productRouter = require('./routes/product');
+const shopRouter = require('./routes/shop');
+const aboutRouter = require('./routes/about');
+const contactRouter = require('./routes/contact');
+const cartRouter = require('./routes/cart');
+const usersRouter = require('./routes/users');
+const apiUserRouter = require('./routes/usersApiRoute');
+const apiProductRouter = require('./routes/productsApiRoute');
 
 
 
@@ -30,19 +30,15 @@ app.set('view engine', 'ejs');
 
 
 // ************ Middlewares - (don't touch) ************
-app.use(express.json());
-app.use(methodOverride('_method'));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(methodOverride('_method'));
+app.use(express.static(publicPath));
 app.use(session({secret: 'keyboard cat',  resave: true, saveUninitialized: true}));
-
-
-
-
-
+app.use(invitadoMiddleware);
+app.use(recordameMiddleware);
 
 
 /*----Routes-----*/
@@ -50,11 +46,6 @@ app.set('views', path.join(__dirname, 'views'));
 
 
 /*---View app---*/
-
-app.use(express.static(publicPath));
-app.use(invitadoMiddleware);
-app.use(recordameMiddleware);
-
 
 app.use('/', mainRouter);
 app.use('/product', productRouter);

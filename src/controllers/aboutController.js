@@ -1,6 +1,7 @@
-const aboutController={
-    aboutView: function(req, res, next) {
-        res.render('about')}
-}
+const aboutController = {
+    aboutView: (req, res) => {
+        res.render('about');
+    }
+};
 
-module.exports=aboutController
+module.exports = aboutController;

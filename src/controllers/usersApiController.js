@@ -1,37 +1,39 @@
 const db = require('../database/models')
 
-module.exports =  {
+module.exports = {
     all: async (req, res) => {
-        let response = {
-            total: 0,
-            users: []
+        try {
+            const users = await db.User.findAll();
+            const usersArr = users.map(user => ({
+                id: user.id,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+                detail: `/api/users/${user.id}`
+            }));
+            return res.json({
+                total: users.length,
+                count: users.length,
+                users: usersArr
+            });
+        } catch (error) {
+            return res.status(500).json({ error: 'Error al obtener usuarios' });
         }
-        let users = await db.User.findAll()
-        response.total = users.length
-        response.count = users.length
-
-        response.users = users.map(user => {
-             let userDetail = {
-                 id: user.id,
-                 firstName: user.firstName,
-                 lastName: user.lastName,
-                 email:  user.email,
-                 detail: `/api/users/${user.id}`        
-             }
-             return userDetail
-         })
-        return res.json(response)
     },
     detail: async (req, res) => {
-        let user = await db.User.findByPk(req.params.id)
-        let response = {
-            id: user.id,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email,
-            type: user.type,
-            image: `http://localhost:8000/img/users/${user.avatar}`, 
+        try {
+            const user = await db.User.findByPk(req.params.id);
+            if (!user) return res.status(404).json({ error: 'Usuario no encontrado' });
+            return res.json({
+                id: user.id,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+                type: user.type,
+                image: `http://localhost:8000/img/users/${user.avatar}`
+            });
+        } catch (error) {
+            return res.status(500).json({ error: 'Error al obtener usuario' });
         }
-        return res.json(response)
     }
-}
+};

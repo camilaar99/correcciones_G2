@@ -1,94 +1,74 @@
 // VALIDACIONES DEL FORMULARIO // log add
 
 window.onload = function(){
-
     let form = document.querySelector('.login');
+    let email = document.querySelector('#email');
+    let contraseña = document.querySelector('#contraseña');
+
+    // Helper for email validation
+    function isValidEmail(mail) {
+        const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        return validRegex.test(mail.value);
+    }
+
+    // Helper for generic field validation
+    function validateField(field, errorMsg) {
+        if (field.value.trim() === '') {
+            field.classList.add('is-invalid');
+            field.classList.remove('is-valid');
+            return errorMsg;
+        } else {
+            field.classList.add('is-valid');
+            field.classList.remove('is-invalid');
+            return null;
+        }
+    }
 
     form.addEventListener('submit', async (e) => {
-        e.preventDefault()
-        let errores = []
+        e.preventDefault();
+        let errores = [];
 
-        let email = document.querySelector('#email')
-        let contraseña = document.querySelector('#contraseña')
+        // Validate email not empty
+        const emailEmptyError = validateField(email, 'El campo email no puede estar vacío');
+        if (emailEmptyError) errores.push(emailEmptyError);
 
-        function ValidateEmail(mail) {
-            var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-            if (mail.value.match(validRegex)) {
-                return true
-            }
-            else{
-                return false
-            }
+        // Validate email format only if not empty
+        if (!emailEmptyError && !isValidEmail(email)) {
+            errores.push('El campo email es inválido');
+            email.classList.add('is-invalid');
+            email.classList.remove('is-valid');
         }
 
-
-        let validMail=ValidateEmail(email);
-
-        if (email.value == ""){
-            errores.push("El campo email no puede estar vacío")
-            email.classList.add('is-invalid')
-            email.classList.remove('is-valid')
-        }
-        else {
-            email.classList.add("is-valid")
-            email.classList.remove('is-invalid')
-        }
-
-        if (validMail==false){
-            errores.push("El campo email es inválido")
-            email.classList.add('is-invalid')
-            email.classList.remove('is-valid')
-        }
-        else {
-            email.classList.add("is-valid")
-            email.classList.remove('is-invalid')
-        }
-
-        if (contraseña.value == ""){
-            errores.push("El campo contraseña no puede estar vacío")
-            contraseña.classList.add('is-invalid')
-            contraseña.classList.remove('is-valid')
-        }
-        else {
-            contraseña.classList.add("is-valid")
-            contraseña.classList.remove('is-invalid')
-        }
-
-        
+        // Validate password
+        const passError = validateField(contraseña, 'El campo contraseña no puede estar vacío');
+        if (passError) errores.push(passError);
 
         if (errores.length > 0) {
-            console.log(errores)
-            let ulErrores = document.querySelector('.errores')
-            ulErrores.classList.add("alert-warning")
-            ulErrores.innerHTML = ""
-            for (let i = 0; i < errores.length; i++) {
-                ulErrores.innerHTML += `<li> ${errores[i]} </li>`
-            }
+            let ulErrores = document.querySelector('.errores');
+            ulErrores.classList.add('alert-warning');
+            ulErrores.innerHTML = '';
+            errores.forEach(err => {
+                ulErrores.innerHTML += `<li> ${err} </li>`;
+            });
             Swal.fire(
                 'Cuidado!',
                 'Verifica los errores',
                 'error'
-            )
-        }
-        else {
-
-            console.log(errores)
+            );
+        } else {
             let body = {
                 email: email.value,
                 contraseña: contraseña.value,
-            }
-
+            };
             Swal.fire(
                 'Muy bien!',
                 'Usuario ingresado!',
                 'success'
-            ).then((result)=>{
-                if (result.isConfirmed){
-                    form.submit()
+            ).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
                 }
-            })
-            
-            }
-        
-})
+            });
+        }
+    });
 }

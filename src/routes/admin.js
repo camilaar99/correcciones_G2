@@ -1,37 +1,28 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const adminController = require('../controllers/adminController');
+const multer = require('multer');
+const path = require('path');
 
-const adminController=require('../controllers/adminController')
-
-const multer=require('multer');
-const path=require('path');
-
-const storage=multer.diskStorage({
-    destination:(req, file, cb)=>{
-        let ruta=(path.join(__dirname,'..','..','./public/img'))
-        cb(null,ruta)
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, path.join(__dirname, '../../public/img'));
     },
-    filename: (req, file, cb)=>{
-        console.log(file);
-        const fileName='producto-'+ Date.now() +path.extname(file.originalname);
-        cb(null,fileName)
+    filename: (req, file, cb) => {
+        const fileName = 'producto-' + Date.now() + path.extname(file.originalname);
+        cb(null, fileName);
     }
-})
+});
 
-const upload=multer({storage: storage})
+const upload = multer({ storage });
 
-/* GET home page. */
+// Rutas admin
 router.get('/', adminController.adminView);
-
-//get y post de crear productos
 router.get('/crear/', adminController.adminCrear);
 router.post('/crear', adminController.crearStore);
-
-
-//get y put de modificar
 router.get('/modificar', adminController.adminModificar);
 router.put('/product/:id', upload.single('imagen'), adminController.modificarUpdate);
-
-//delete
 router.delete('/product/:id', adminController.modificarDestroy);
+
+module.exports = router;
 

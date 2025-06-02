@@ -1,30 +1,15 @@
-const fs = require('fs');
-const path = require('path');
-
-
-let db=require('../database/models');
-let sequelize=db.sequelize
+const db = require('../database/models');
+const sequelize = db.sequelize;
 
 const mainController = {
-
-
-    mainView: function (req, res) {
-
+    mainView: async (req, res) => {
         try {
-            db.Product.findAll({
-                where:{
-                    size:"Small"
-                }
-            }).then(function (result) {
-                res.render('shop', { products: result })
-                //res.send(result)
-            })
-            
+            const result = await db.Product.findAll({ where: { size: 'Small' } });
+            res.render('shop', { products: result });
         } catch (error) {
-            res.send(error)
+            res.status(500).send(error);
         }
-        
     }
-}
+};
 
-module.exports = mainController
+module.exports = mainController;

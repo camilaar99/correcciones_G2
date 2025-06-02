@@ -1,38 +1,43 @@
 const db = require('../database/models')
 
-module.exports =  {
-
+module.exports = {
     all: async (req, res) => {
-        let response = {
-            count: 0,
-            countByGroup: {},
-            products: [], 
-        }
-        let products = await db.Product.findAll({include: ["grupo_equipo"]})
-        let grupos = await db.Grupo.findAll({include: ["grupo_equipo"]})
-        grupos.forEach(grupo => response.countByGroup[grupo.grupo] = grupo.grupo_equipo.length)
-        response.count = products.length
-        response.products = products.map(product => {
-            let productDetail = {
-                id: product.id,
-                teamName: product.teamName,
-                 jugador: product.jugador,
-                 price: product.price,
-                 grupo: product.grupo_id,
-                 imagen: `http://localhost:8000/img/${product.imagen}`,
-                 detail: `/api/products/${product.id}`
-            }
-            return productDetail
-        })
-        return res.json(response)      
+        // Fetch products and groups in parallel
+        const [products, grupos] = await Promise.all([
+            db.Product.findAll({ include: ['grupo_equipo'] }),
+            db.Grupo.findAll({ include: ['grupo_equipo'] })
+        ]);
+
+        // Build countByGroup
+        const countByGroup = {};
+        grupos.forEach(grupo => {
+            countByGroup[grupo.grupo] = grupo.grupo_equipo.length;
+        });
+
+        // Build products array
+        const productsArr = products.map(product => ({
+            id: product.id,
+            teamName: product.teamName,
+            jugador: product.jugador,
+            price: product.price,
+            grupo: product.grupo_id,
+            imagen: `http://localhost:8000/img/${product.imagen}`,
+            detail: `/api/products/${product.id}`
+        }));
+
+        return res.json({
+            count: products.length,
+            countByGroup,
+            products: productsArr
+        });
     },
 
     detail: async (req, res) => {
-        let product = await db.Product.findByPk(req.params.id,{include: ["grupo_equipo"]})
-
-        let response = {
+        const product = await db.Product.findByPk(req.params.id, { include: ['grupo_equipo'] });
+        if (!product) return res.status(404).json({ error: 'Producto no encontrado' });
+        return res.json({
             id: product.id,
-            teamName: product.teamName, 
+            teamName: product.teamName,
             imagen: `http://localhost:8000/img/${product.imagen}`,
             size: product.size,
             jugador: product.jugador,
@@ -40,14 +45,11 @@ module.exports =  {
             created_at: product.crated_at,
             updated_at: product.updated_at,
             deleted_at: product.deleted_at
-        }
-        
-        return res.json(response)
+        });
     },
-    all2: async(req,res)=>{
-        let products = await db.Product.findAll({include: ["grupo_equipo"]})
-        res.json(products)
 
+    all2: async (req, res) => {
+        const products = await db.Product.findAll({ include: ['grupo_equipo'] });
+        res.json(products);
     }
-
-}
+};
